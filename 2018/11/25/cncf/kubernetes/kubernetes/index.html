@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>kubernetes - 「 ~ 」- jnan806&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="jnan806, JAVA, Go, 云原生, 微服务">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="cd &#x2F;etc&#x2F;yum.repos.d&#x2F; vim kubernetes.repo[kubernetes]name&#x3D;Kubernetesbaseurl&#x3D;http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;repos&#x2F;kubernetes-el7-x86_64enabled&#x3D;1gpgcheck&#x3D;0rep">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes">
+<meta property="og:url" content="http://jnan806.panpan.cloud/2018/11/25/cncf/kubernetes/kubernetes/index.html">
+<meta property="og:site_name" content="「 ~ 」- jnan806&#39;s blog">
+<meta property="og:description" content="cd &#x2F;etc&#x2F;yum.repos.d&#x2F; vim kubernetes.repo[kubernetes]name&#x3D;Kubernetesbaseurl&#x3D;http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;repos&#x2F;kubernetes-el7-x86_64enabled&#x3D;1gpgcheck&#x3D;0rep">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-25T04:21:44.000Z">
+<meta property="article:modified_time" content="2022-08-29T13:33:38.585Z">
+<meta property="article:author" content="jnan806">
+<meta property="article:tag" content="容器化">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="云原生">
+<meta name="twitter:card" content="summary">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/justifiedGallery/justifiedGallery.min.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1661828351749">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1661828351749">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1661828351749">
+        
+    
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="「 ~ 」- jnan806's blog" type="application/atom+xml">
+</head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(/source.local/images/background.png)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer">「 ~ 」- jnan806&#39;s blog</div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="jnan806" class="mdui-btn mdui-btn-icon"><img src="/source.local/images/avatar.png" alt="jnan806"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="javascript:void(0);" title="jnan806">
+            <img src="/source.local/images/avatar.png" alt="jnan806" loading="lazy">
+        </a>
+    </div>
+
+    <div class="nexmoe-count">
+        <div><a href="/archives/"><span>文章</span>16</a></div>
+        <div><a href="/archives/"><span>标签</span>26</a></div>
+        <div><a href="/archives/"><span>分类</span>7</a></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="首 页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                首 页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archives/" title="时间轴">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                时间轴
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/aboutme" title="关 于">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关 于
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+        
+        
+        <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/jnan806/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="/atom.xml"
+			target="_blank"
+			mdui-tooltip="{content: 'RSS'}"
+			style="
+				color: rgb(247, 132, 34);
+				background-color: rgba(247, 132, 34, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-rss"
+			></i> </a
+		>
+	</div>
+</div>
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CNCF-云原生/">CNCF 云原生</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Golang/">Golang</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Java/">Java</a>
+          <span class="category-list-count">4</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Linux/">Linux</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Spring/">Spring</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Spring-Cloud/">Spring-Cloud</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Tools/">Tools</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/CentOS/" style="font-size: 12.5px;">CentOS</a> <a href="/tags/Golang/" style="font-size: 10px;">Golang</a> <a href="/tags/alibaba/" style="font-size: 10px;">alibaba</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kubernetes/" style="font-size: 10px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nexus/" style="font-size: 10px;">nexus</a> <a href="/tags/spring/" style="font-size: 17.5px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 15px;">spring-boot</a> <a href="/tags/spring-cloud/" style="font-size: 12.5px;">spring-cloud</a> <a href="/tags/spring-cloud-alibaba/" style="font-size: 10px;">spring-cloud-alibaba</a> <a href="/tags/ssl%E8%87%AA%E7%AD%BE%E8%AF%81%E4%B9%A6/" style="font-size: 10px;">ssl自签证书</a> <a href="/tags/%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/" style="font-size: 10px;">中央仓库</a> <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" style="font-size: 10px;">云原生</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" style="font-size: 10px;">垃圾回收</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" style="font-size: 10px;">垃圾收集器</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/" style="font-size: 12.5px;">容器化</a> <a href="/tags/%E5%BC%80%E6%BA%90%E7%A4%BE%E5%8C%BA/" style="font-size: 10px;">开源社区</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 12.5px;">微服务</a> <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" style="font-size: 10px;">类加载器</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2016 - 2022 jnan806
+        <br/>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+    <a>
+        
+            <div class="nexmoe-post-cover mdui-ripple">
+                <!--                    <img src="/source.local/images/background.png" alt="kubernetes" loading="lazy">-->
+                <h1>kubernetes</h1>
+            </div>
+        
+    </a>
+
+    <div class="nexmoe-post-meta nexmoe-rainbow">
+        <a><i class="nexmoefont icon-calendar-fill"></i>2018年11月25日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/CNCF-%E4%BA%91%E5%8E%9F%E7%94%9F/">CNCF 云原生</a>
+        
+        
+            <a class="nexmoefont icon-tag-fill -none-link" href="/tags/kubernetes/" rel="tag">kubernetes</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" rel="tag">云原生</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/" rel="tag">容器化</a>
+        
+        
+    </div>
+
+    <hr/>
+
+  <article>
+      <p>cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</p>
+<p>vim kubernetes.repo<br>[kubernetes]<br>name&#x3D;Kubernetes<br>baseurl&#x3D;<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64">http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</a><br>enabled&#x3D;1<br>gpgcheck&#x3D;0<br>repo_gpgcheck&#x3D;0<br>gpgkey&#x3D;<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg">http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</a><br><a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg">http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</a></p>
+<p>yum install -y bash-completion</p>
+<h1 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h1><p>yum remove -y kubelet kubeadm kubectl</p>
+<p>yum install -y kubelet-1.14.0  &amp;&amp; yum install -y  kubeadm-1.14.0  kubectl-1.14.0</p>
+<p>vim ~&#x2F;.bashrc<br>alias v&#x3D;vim<br>alias k&#x3D;kubectl<br>alias kdp&#x3D;‘kubectl delete pod –force –grace-period&#x3D;0’<br>alias kn&#x3D;‘kubectl config set-context —current –namespace’<br>source &lt; (kubectl completion bash)<br>completion -F __start_kubectl k</p>
+<p>systemctl enable kubelet</p>
+<p>vim &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf<br>net.bridge.bridge-nf-call-iptables &#x3D; 1<br>#net.bridge.bridge-nf-call-ip6tables &#x3D; 1<br>net.bridge.bridge-nf-call-arptables &#x3D; 1<br>net.ipv4.ip_forward &#x3D; 1</p>
+<p>vm.swappiness&#x3D;0</p>
+<p>sudo sysctl -p &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf</p>
+<p>vim &#x2F;etc&#x2F;sysconfig&#x2F;kubelet<br>KUBELET_EXTRA_ARGS&#x3D;”–fail-swap-on&#x3D;false”</p>
+<p>systemctl daemon-reload &amp;&amp; systemctl restart docker &amp;&amp; systemctl restart kubelet</p>
+<p>cd ~<br>kubeadm config print init-defaults &gt; &#x2F;root&#x2F;kubeadm-config.yaml</p>
+<p>vim &#x2F;root&#x2F;kubeadm-master.config<br>–advertiseAddress: 192.168.86.11<br>–name: node51<br>–controlPlaneEndpoint: k8s.apiserver.com:6443(只有master需要)<br>–image-repository  registry.aliyuncs.com&#x2F;google_containers<br>– podSubnet: 10.88.0.0&#x2F;16<br>–pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12</p>
+<h1 id="提前拉取镜像"><a href="#提前拉取镜像" class="headerlink" title="提前拉取镜像"></a>提前拉取镜像</h1><p>kubeadm config images pull –config &#x2F;root&#x2F;kubeadm-config.yaml</p>
+<h1 id="master-初始化集群"><a href="#master-初始化集群" class="headerlink" title="master 初始化集群"></a>master 初始化集群</h1><p>kubeadm init –config &#x2F;root&#x2F;kubeadm-config.yaml –ignore-preflight-errors&#x3D;Swap<br>#或者直接以参数形式<br>kubeadm init –image-repository registry.aliyuncs.com&#x2F;google_containers –kubernetes-version&#x3D;v1.14.0 –pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12 –advertiseAddress: 192.168.86.11</p>
+<p>#失败后的处理方式<br>journalctl -xefu kubelet<br>kubeadm reset -f</p>
+<p>#配置<br>cd &#x2F;root<br>rm -rf $HOME&#x2F;.kube<br>mkdir -p $HOME&#x2F;.kube<br>sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf  $HOME&#x2F;.kube&#x2F;config<br>sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config<br>echo “export KUBECONFIG&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf” &gt;&gt; ~&#x2F;.bash_profile<br>source  ~&#x2F;.bash_profile</p>
+<p>网络方案一、calico<br>cd ~<br>mkdir calico<br>cd calicao<br>wget <a target="_blank" rel="noopener" href="https://kuboard.cn/install-script/v1.20.x/calico-operator.yaml">https://kuboard.cn/install-script/v1.20.x/calico-operator.yaml</a><br>wget <a target="_blank" rel="noopener" href="https://kuboard.cn/install-script/v1.20.x/calico-custom-resources.yaml">https://kuboard.cn/install-script/v1.20.x/calico-custom-resources.yaml</a><br>kubectl apply -f calico-operator.yaml<br>sed -i “s#192.168.0.0&#x2F;16#${POD_SUBNET}#” calico-custom-resources.yaml<br>kubectl apply -f calico-custom-resources.yaml</p>
+<p>网络方案二、flannel<br>cd ~<br>mkdir flannel<br>cd flannel<br>wget <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml">https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</a></p>
+<h1 id="kube-flannel-yml-的-data-net-conf-json-Network-需要与-kubeadm-config-yaml-中的-networking-pod-network-cidr-保持一致"><a href="#kube-flannel-yml-的-data-net-conf-json-Network-需要与-kubeadm-config-yaml-中的-networking-pod-network-cidr-保持一致" class="headerlink" title="kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致"></a>kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致</h1><p>kubectl apply -f kube-flannel.yml<br>#若卡住不动，可以查看pod信息，然后下载相关镜像<br>docker pull quay.io&#x2F;coreos&#x2F;flannel:v0.11.0-amd64<br>#如果多网卡则修改yaml文件<br>args:</p>
+<ul>
+<li>–masq</li>
+<li>–kube-subnet-mgr</li>
+<li>–iface&#x3D;enp0s8（网卡名）</li>
+</ul>
+<p>#执行<br>kubectl apply -f kube-flannel.yml<br>kubectl get pods -n kube-system</p>
+<h1 id="node节点"><a href="#node节点" class="headerlink" title="node节点"></a>node节点</h1><p>mkdir -p &#x2F;etc&#x2F;kubernetes<br>mkdir -p &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd</p>
+<p>#token有效期是有限的（默认24h），如果旧的token过期，可以使用命令重新创建一条token<br>kubeadm token create –print-join-command</p>
+<p>#加入node节点<br>kubeadm join k8s.apiserver.com:6443 –token 05eoyj.6x9dhm9q86u2xfmc –discovery-token-ca-cert-hash sha256:c6bd85e6c2b3ce88b9764e3462d4d0cbaab091a32522f685310ec3501683a756 –ignore-preflight-errors&#x3D;Swap</p>
+<p>#加入master节点<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;sa.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;front-proxy-ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf &#x2F;etc&#x2F;kubernetes&#x2F;<br>kubeadm join k8s.apiserver.com:6443 –token 05eoyj.6x9dhm9q86u2xfmc –discovery-token-ca-cert-hash sha256:c6bd85e6c2b3ce88b9764e3462d4d0cbaab091a32522f685310ec3501683a756 –ignore-preflight-errors&#x3D;Swap –experimental-control-plane</p>
+<p>#移除ndoe节点<br>#master上执行<br>kubectl delete node node13<br>#node上执行<br>kubeadm reset -f<br>ifconfig cni0 down &amp;&amp; ip link delete cni0<br>ifconfig flannel.1 down &amp;&amp; ip link delete flannel.1<br>rm -rf &#x2F;var&#x2F;lib&#x2F;cni&#x2F;<br>rm -rf &#x2F;etc&#x2F;kubernetes<br>rm -rf &#x2F;root&#x2F;.kube&#x2F;config<br>rm -rf &#x2F;var&#x2F;lib&#x2F;etcd</p>
+<p>更新证书时间<br>kubeadm alpha certs renew all</p>
+<p>查看证书时间<br>kubeadm alpha certs check-expiration</p>
+<p>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-apiserver.yaml<br>添加到如下位置就行了</p>
+<ul>
+<li>command:<ul>
+<li>kube-apiserver</li>
+<li>–service-node-port-range&#x3D;1-65535</li>
+</ul>
+</li>
+</ul>
+<p>1.21之后，get cs （ComponentStatus） 报错<br>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-scheduler.yaml<br>注释掉 port&#x3D;0<br>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-controller-manager.yaml<br>注释掉 port&#x3D;0</p>
+
+      
+  </article>
+
+  <hr/>
+
+  
+    
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>jnan806<br>
+        <strong>本文链接：</strong><a href="http://jnan806.panpan.cloud/2018/11/25/cncf/kubernetes/kubernetes/" title="http:&#x2F;&#x2F;jnan806.panpan.cloud&#x2F;2018&#x2F;11&#x2F;25&#x2F;cncf&#x2F;kubernetes&#x2F;kubernetes&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;jnan806.panpan.cloud&#x2F;2018&#x2F;11&#x2F;25&#x2F;cncf&#x2F;kubernetes&#x2F;kubernetes&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+
+  <hr/>
+
+
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">卸载旧版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E5%89%8D%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F"><span class="toc-number">2.</span> <span class="toc-text">提前拉取镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#master-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%9B%86%E7%BE%A4"><span class="toc-number">3.</span> <span class="toc-text">master 初始化集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kube-flannel-yml-%E7%9A%84-data-net-conf-json-Network-%E9%9C%80%E8%A6%81%E4%B8%8E-kubeadm-config-yaml-%E4%B8%AD%E7%9A%84-networking-pod-network-cidr-%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4"><span class="toc-number">4.</span> <span class="toc-text">kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#node%E8%8A%82%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">node节点</span></a></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="搜索"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+<script src="/lib/mdui_043tiny/mdui.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/justifiedGallery/jquery.justifiedGallery.min.js"></script>
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+
+
+ 
+
+<script async src="/js/app.js?v=1661828351757"></script>
+
+
+
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+</body>
+
+</html>

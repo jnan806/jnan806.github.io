@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>docker - 「 ~ 」- jnan806&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="jnan806, JAVA, Go, 云原生, 微服务">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="cd &#x2F;etc&#x2F;yum.repos.d&#x2F; wget https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo yum remove -y docker docker-client docker-client-latest docker-common  docker-latest docker-la">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker">
+<meta property="og:url" content="http://jnan806.panpan.cloud/2018/11/25/cncf/docker/docker/index.html">
+<meta property="og:site_name" content="「 ~ 」- jnan806&#39;s blog">
+<meta property="og:description" content="cd &#x2F;etc&#x2F;yum.repos.d&#x2F; wget https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo yum remove -y docker docker-client docker-client-latest docker-common  docker-latest docker-la">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-25T04:21:44.000Z">
+<meta property="article:modified_time" content="2022-08-29T13:33:31.043Z">
+<meta property="article:author" content="jnan806">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="容器化">
+<meta name="twitter:card" content="summary">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/justifiedGallery/justifiedGallery.min.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1661828351746">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1661828351746">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1661828351746">
+        
+    
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="「 ~ 」- jnan806's blog" type="application/atom+xml">
+</head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(/source.local/images/background.png)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer">「 ~ 」- jnan806&#39;s blog</div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="jnan806" class="mdui-btn mdui-btn-icon"><img src="/source.local/images/avatar.png" alt="jnan806"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="javascript:void(0);" title="jnan806">
+            <img src="/source.local/images/avatar.png" alt="jnan806" loading="lazy">
+        </a>
+    </div>
+
+    <div class="nexmoe-count">
+        <div><a href="/archives/"><span>文章</span>16</a></div>
+        <div><a href="/archives/"><span>标签</span>26</a></div>
+        <div><a href="/archives/"><span>分类</span>7</a></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="首 页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                首 页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archives/" title="时间轴">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                时间轴
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/aboutme" title="关 于">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关 于
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+        
+        
+        <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/jnan806/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="/atom.xml"
+			target="_blank"
+			mdui-tooltip="{content: 'RSS'}"
+			style="
+				color: rgb(247, 132, 34);
+				background-color: rgba(247, 132, 34, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-rss"
+			></i> </a
+		>
+	</div>
+</div>
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CNCF-云原生/">CNCF 云原生</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Golang/">Golang</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Java/">Java</a>
+          <span class="category-list-count">4</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Linux/">Linux</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Spring/">Spring</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Spring-Cloud/">Spring-Cloud</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Tools/">Tools</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/CentOS/" style="font-size: 12.5px;">CentOS</a> <a href="/tags/Golang/" style="font-size: 10px;">Golang</a> <a href="/tags/alibaba/" style="font-size: 10px;">alibaba</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kubernetes/" style="font-size: 10px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nexus/" style="font-size: 10px;">nexus</a> <a href="/tags/spring/" style="font-size: 17.5px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 15px;">spring-boot</a> <a href="/tags/spring-cloud/" style="font-size: 12.5px;">spring-cloud</a> <a href="/tags/spring-cloud-alibaba/" style="font-size: 10px;">spring-cloud-alibaba</a> <a href="/tags/ssl%E8%87%AA%E7%AD%BE%E8%AF%81%E4%B9%A6/" style="font-size: 10px;">ssl自签证书</a> <a href="/tags/%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/" style="font-size: 10px;">中央仓库</a> <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" style="font-size: 10px;">云原生</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" style="font-size: 10px;">垃圾回收</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" style="font-size: 10px;">垃圾收集器</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/" style="font-size: 12.5px;">容器化</a> <a href="/tags/%E5%BC%80%E6%BA%90%E7%A4%BE%E5%8C%BA/" style="font-size: 10px;">开源社区</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 12.5px;">微服务</a> <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" style="font-size: 10px;">类加载器</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2016 - 2022 jnan806
+        <br/>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+    <a>
+        
+            <div class="nexmoe-post-cover mdui-ripple">
+                <!--                    <img src="/source.local/images/background.png" alt="docker" loading="lazy">-->
+                <h1>docker</h1>
+            </div>
+        
+    </a>
+
+    <div class="nexmoe-post-meta nexmoe-rainbow">
+        <a><i class="nexmoefont icon-calendar-fill"></i>2018年11月25日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/CNCF-%E4%BA%91%E5%8E%9F%E7%94%9F/">CNCF 云原生</a>
+        
+        
+            <a class="nexmoefont icon-tag-fill -none-link" href="/tags/docker/" rel="tag">docker</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/" rel="tag">容器化</a>
+        
+        
+    </div>
+
+    <hr/>
+
+  <article>
+      <p>cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</p>
+<p>wget <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
+<p>yum remove -y docker docker-client docker-client-latest docker-common  docker-latest docker-latest-logrotate docker-logrotate docker-engine<br>yum remove -y yum-utils device-mapper-persistent-data lvm2<br>yum remove -y docker-ce docker-compose</p>
+<p>yum install -y yum-utils device-mapper-persistent-data lvm2 epel-release<br>yum install -y docker-ce docker-compose</p>
+<p>#某一版本之后，yum 貌似移除了docker-compose，需要到github官网下载二进制<br>#配置环境变量，或者 copy into &#x2F;usr&#x2F;bin<br>#Rename the relevant binary for your OS to docker-compose and copy it to $HOME&#x2F;.docker&#x2F;cli-plugins</p>
+<h1 id="腾讯云-docker-hub-镜像"><a href="#腾讯云-docker-hub-镜像" class="headerlink" title="腾讯云 docker hub 镜像"></a>腾讯云 docker hub 镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot"><a href="#export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”https://mirror.ccs.tencentyun.com&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a target="_blank" rel="noopener" href="https://mirror.ccs.tencentyun.com&quot;/">https://mirror.ccs.tencentyun.com&quot;</a></h1><h1 id="DaoCloud-镜像"><a href="#DaoCloud-镜像" class="headerlink" title="DaoCloud 镜像"></a>DaoCloud 镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot"><a href="#export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”http://f1361db2.m.daocloud.io&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a target="_blank" rel="noopener" href="http://f1361db2.m.daocloud.io&quot;/">http://f1361db2.m.daocloud.io&quot;</a></h1><h1 id="华为云镜像"><a href="#华为云镜像" class="headerlink" title="华为云镜像"></a>华为云镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”https-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot"><a href="#export-REGISTRY-MIRROR-x3D-”https-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a target="_blank" rel="noopener" href="https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;/">https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;</a></h1><h1 id="阿里云-docker-hub-镜像"><a href="#阿里云-docker-hub-镜像" class="headerlink" title="阿里云 docker hub 镜像"></a>阿里云 docker hub 镜像</h1><p>export REGISTRY_MIRROR&#x3D;<a target="_blank" rel="noopener" href="https://registry.cn-hangzhou.aliyuncs.com/">https://registry.cn-hangzhou.aliyuncs.com</a></p>
+<h1 id="Jiajiangnan"><a href="#Jiajiangnan" class="headerlink" title="Jiajiangnan"></a>Jiajiangnan</h1><p><a target="_blank" rel="noopener" href="https://t92txq8i.mirror.aliyuncs.com/">https://t92txq8i.mirror.aliyuncs.com</a></p>
+<p>mkdir -p &#x2F;etc&#x2F;docker</p>
+<p>vim &#x2F;etc&#x2F;docker&#x2F;daemon.json<br>{<br>“registry-mirrors”:[“<a target="_blank" rel="noopener" href="https://registry.cn-hangzhou.aliyuncs.com&quot;/">https://registry.cn-hangzhou.aliyuncs.com&quot;</a>, “<a href="https://registry.docker-cn.com&quot;]">https://registry.docker-cn.com&quot;]</a>,<br>“insecure-registries”:[“node03.registry.com:5000”],</p>
+<h1 id="“exec-opts”-“native-cgroupdriver-x3D-systemd”"><a href="#“exec-opts”-“native-cgroupdriver-x3D-systemd”" class="headerlink" title="“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],"></a>“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],</h1><h1 id="“graph”-”-x2F-home-x2F-docker-ce”"><a href="#“graph”-”-x2F-home-x2F-docker-ce”" class="headerlink" title="“graph”:”&#x2F;home&#x2F;docker-ce”,"></a>“graph”:”&#x2F;home&#x2F;docker-ce”,</h1><p>“data-root”:”&#x2F;home&#x2F;docker-ce”,<br>“log-driver”:”json-file”,<br>“log-opts”:{“max-size”:”50m”, “max-file”:”10”}<br>}</p>
+<p>vim &#x2F;etc&#x2F;sysctl.conf<br>#net.bridge.bridge-nf-call-ip6tables &#x3D; 1<br>net.bridge.bridge-nf-call-iptables &#x3D; 1<br>net.bridge.bridge-nf-call-arptables &#x3D; 1<br>net.ipv4.ip_forward &#x3D; 1</p>
+<p>vm.swappiness&#x3D;0</p>
+<p>systemctl daemon-reload<br>systemctl start docker<br>systemctl enable docker</p>
+<p>yum install -y docker-registry</p>
+<p>vim  &#x2F;etc&#x2F;docker-distribution&#x2F;registry&#x2F;config.yml</p>
+<p>systemctl start docker-distribution<br>systemctl enable docker-distribution</p>
+
+      
+  </article>
+
+  <hr/>
+
+  
+    
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>jnan806<br>
+        <strong>本文链接：</strong><a href="http://jnan806.panpan.cloud/2018/11/25/cncf/docker/docker/" title="http:&#x2F;&#x2F;jnan806.panpan.cloud&#x2F;2018&#x2F;11&#x2F;25&#x2F;cncf&#x2F;docker&#x2F;docker&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;jnan806.panpan.cloud&#x2F;2018&#x2F;11&#x2F;25&#x2F;cncf&#x2F;docker&#x2F;docker&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+
+  <hr/>
+
+
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%85%BE%E8%AE%AF%E4%BA%91-docker-hub-%E9%95%9C%E5%83%8F"><span class="toc-number">1.</span> <span class="toc-text">腾讯云 docker hub 镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#export-REGISTRY-MIRROR-x3D-%E2%80%9Dhttps-mirror-ccs-tencentyun-com-quot"><span class="toc-number">2.</span> <span class="toc-text">export REGISTRY_MIRROR&#x3D;”https:&#x2F;&#x2F;mirror.ccs.tencentyun.com&quot;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DaoCloud-%E9%95%9C%E5%83%8F"><span class="toc-number">3.</span> <span class="toc-text">DaoCloud 镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#export-REGISTRY-MIRROR-x3D-%E2%80%9Dhttp-f1361db2-m-daocloud-io-quot"><span class="toc-number">4.</span> <span class="toc-text">export REGISTRY_MIRROR&#x3D;”http:&#x2F;&#x2F;f1361db2.m.daocloud.io&quot;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%95%9C%E5%83%8F"><span class="toc-number">5.</span> <span class="toc-text">华为云镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#export-REGISTRY-MIRROR-x3D-%E2%80%9Dhttps-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot"><span class="toc-number">6.</span> <span class="toc-text">export REGISTRY_MIRROR&#x3D;”https:&#x2F;&#x2F;05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91-docker-hub-%E9%95%9C%E5%83%8F"><span class="toc-number">7.</span> <span class="toc-text">阿里云 docker hub 镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Jiajiangnan"><span class="toc-number">8.</span> <span class="toc-text">Jiajiangnan</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%80%9Cexec-opts%E2%80%9D-%E2%80%9Cnative-cgroupdriver-x3D-systemd%E2%80%9D"><span class="toc-number">9.</span> <span class="toc-text">“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%80%9Cgraph%E2%80%9D-%E2%80%9D-x2F-home-x2F-docker-ce%E2%80%9D"><span class="toc-number">10.</span> <span class="toc-text">“graph”:”&#x2F;home&#x2F;docker-ce”,</span></a></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="搜索"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+<script src="/lib/mdui_043tiny/mdui.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/justifiedGallery/jquery.justifiedGallery.min.js"></script>
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+
+
+ 
+
+<script async src="/js/app.js?v=1661828351749"></script>
+
+
+
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+</body>
+
+</html>

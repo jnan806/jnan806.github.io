@@ -1,0 +1,22 @@
+<!-- markdownlint-disable MD039 MD033 -->
+
+<h2 id="这是一個不存在的页面"><a href="#这是一個不存在的页面" class="headerlink" title="这是一個不存在的页面"></a>这是一個不存在的页面</h2><p>对不起，您所访问的页面不存在或者已删除。</p>
+<p>预计将在约 <span id="timeout">5</span> 秒后返回首页。</p>
+<p>当然，你可以 <strong>[点这里](Richard Zhu)</strong> 直接返回首页。</p>
+<script>
+let countTime = 5;
+
+function count() {
+
+  document.getElementById('timeout').textContent = countTime;
+  countTime -= 1;
+  if(countTime === 0){
+    location.href = 'Richard Zhu';
+  }
+  setTimeout(() => {
+    count();
+  }, 1000);
+}
+
+count();
+</script>
