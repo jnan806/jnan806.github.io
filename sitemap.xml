@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/2017/05/12/tools/git/phrase/</loc>
+    <loc>http://jnan806.panpan.cloud/2017/05/12/tools/nexus/nexus/</loc>
     
     <lastmod>2017-05-12</lastmod>
     
@@ -146,7 +146,7 @@
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/2017/05/12/tools/nexus/nexus/</loc>
+    <loc>http://jnan806.panpan.cloud/2017/05/12/tools/git/phrase/</loc>
     
     <lastmod>2017-05-12</lastmod>
     
@@ -221,14 +221,14 @@
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/tags/jvm/</loc>
+    <loc>http://jnan806.panpan.cloud/tags/linux/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</loc>
+    <loc>http://jnan806.panpan.cloud/tags/CentOS/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -249,21 +249,21 @@
   </url>
   
   <url>
+    <loc>http://jnan806.panpan.cloud/tags/jvm/</loc>
+    <lastmod>2022-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://jnan806.panpan.cloud/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</loc>
+    <lastmod>2022-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://jnan806.panpan.cloud/tags/spring/</loc>
-    <lastmod>2022-09-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://jnan806.panpan.cloud/tags/linux/</loc>
-    <lastmod>2022-09-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://jnan806.panpan.cloud/tags/CentOS/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -291,7 +291,7 @@
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/tags/kubernetes/</loc>
+    <loc>http://jnan806.panpan.cloud/tags/docker/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -305,14 +305,14 @@
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc>
+    <loc>http://jnan806.panpan.cloud/tags/kubernetes/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/tags/docker/</loc>
+    <loc>http://jnan806.panpan.cloud/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -340,20 +340,6 @@
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/tags/git/</loc>
-    <lastmod>2022-09-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://jnan806.panpan.cloud/tags/%E5%BC%80%E6%BA%90%E7%A4%BE%E5%8C%BA/</loc>
-    <lastmod>2022-09-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://jnan806.panpan.cloud/tags/nexus/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -362,6 +348,20 @@
   
   <url>
     <loc>http://jnan806.panpan.cloud/tags/%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/</loc>
+    <lastmod>2022-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://jnan806.panpan.cloud/tags/git/</loc>
+    <lastmod>2022-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://jnan806.panpan.cloud/tags/%E5%BC%80%E6%BA%90%E7%A4%BE%E5%8C%BA/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -398,14 +398,14 @@
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/categories/Spring/</loc>
+    <loc>http://jnan806.panpan.cloud/categories/Linux/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://jnan806.panpan.cloud/categories/Linux/</loc>
+    <loc>http://jnan806.panpan.cloud/categories/Spring/</loc>
     <lastmod>2022-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

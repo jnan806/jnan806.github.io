@@ -166,6 +166,34 @@
   </entry>
   
   <entry>
+    <title>docker</title>
+    <link href="http://jnan806.panpan.cloud/2018/11/25/cncf/docker/docker/"/>
+    <id>http://jnan806.panpan.cloud/2018/11/25/cncf/docker/docker/</id>
+    <published>2018-11-25T04:21:44.000Z</published>
+    <updated>2022-08-29T13:33:31.043Z</updated>
+    
+    <content type="html"><![CDATA[<p>cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</p><p>wget <a href="https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p><p>yum remove -y docker docker-client docker-client-latest docker-common  docker-latest docker-latest-logrotate docker-logrotate docker-engine<br>yum remove -y yum-utils device-mapper-persistent-data lvm2<br>yum remove -y docker-ce docker-compose</p><p>yum install -y yum-utils device-mapper-persistent-data lvm2 epel-release<br>yum install -y docker-ce docker-compose</p><p>#某一版本之后，yum 貌似移除了docker-compose，需要到github官网下载二进制<br>#配置环境变量，或者 copy into &#x2F;usr&#x2F;bin<br>#Rename the relevant binary for your OS to docker-compose and copy it to $HOME&#x2F;.docker&#x2F;cli-plugins</p><h1 id="腾讯云-docker-hub-镜像"><a href="#腾讯云-docker-hub-镜像" class="headerlink" title="腾讯云 docker hub 镜像"></a>腾讯云 docker hub 镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot"><a href="#export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”https://mirror.ccs.tencentyun.com&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="https://mirror.ccs.tencentyun.com&quot;/">https://mirror.ccs.tencentyun.com&quot;</a></h1><h1 id="DaoCloud-镜像"><a href="#DaoCloud-镜像" class="headerlink" title="DaoCloud 镜像"></a>DaoCloud 镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot"><a href="#export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”http://f1361db2.m.daocloud.io&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="http://f1361db2.m.daocloud.io&quot;/">http://f1361db2.m.daocloud.io&quot;</a></h1><h1 id="华为云镜像"><a href="#华为云镜像" class="headerlink" title="华为云镜像"></a>华为云镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”https-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot"><a href="#export-REGISTRY-MIRROR-x3D-”https-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;/">https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;</a></h1><h1 id="阿里云-docker-hub-镜像"><a href="#阿里云-docker-hub-镜像" class="headerlink" title="阿里云 docker hub 镜像"></a>阿里云 docker hub 镜像</h1><p>export REGISTRY_MIRROR&#x3D;<a href="https://registry.cn-hangzhou.aliyuncs.com/">https://registry.cn-hangzhou.aliyuncs.com</a></p><h1 id="Jiajiangnan"><a href="#Jiajiangnan" class="headerlink" title="Jiajiangnan"></a>Jiajiangnan</h1><p><a href="https://t92txq8i.mirror.aliyuncs.com/">https://t92txq8i.mirror.aliyuncs.com</a></p><p>mkdir -p &#x2F;etc&#x2F;docker</p><p>vim &#x2F;etc&#x2F;docker&#x2F;daemon.json<br>{<br>“registry-mirrors”:[“<a href="https://registry.cn-hangzhou.aliyuncs.com&quot;/">https://registry.cn-hangzhou.aliyuncs.com&quot;</a>, “<a href="https://registry.docker-cn.com&quot;]">https://registry.docker-cn.com&quot;]</a>,<br>“insecure-registries”:[“node03.registry.com:5000”],</p><h1 id="“exec-opts”-“native-cgroupdriver-x3D-systemd”"><a href="#“exec-opts”-“native-cgroupdriver-x3D-systemd”" class="headerlink" title="“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],"></a>“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],</h1><h1 id="“graph”-”-x2F-home-x2F-docker-ce”"><a href="#“graph”-”-x2F-home-x2F-docker-ce”" class="headerlink" title="“graph”:”&#x2F;home&#x2F;docker-ce”,"></a>“graph”:”&#x2F;home&#x2F;docker-ce”,</h1><p>“data-root”:”&#x2F;home&#x2F;docker-ce”,<br>“log-driver”:”json-file”,<br>“log-opts”:{“max-size”:”50m”, “max-file”:”10”}<br>}</p><p>vim &#x2F;etc&#x2F;sysctl.conf<br>#net.bridge.bridge-nf-call-ip6tables &#x3D; 1<br>net.bridge.bridge-nf-call-iptables &#x3D; 1<br>net.bridge.bridge-nf-call-arptables &#x3D; 1<br>net.ipv4.ip_forward &#x3D; 1</p><p>vm.swappiness&#x3D;0</p><p>systemctl daemon-reload<br>systemctl start docker<br>systemctl enable docker</p><p>yum install -y docker-registry</p><p>vim  &#x2F;etc&#x2F;docker-distribution&#x2F;registry&#x2F;config.yml</p><p>systemctl start docker-distribution<br>systemctl enable docker-distribution</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;cd &amp;#x2F;etc&amp;#x2F;yum.repos.d&amp;#x2F;&lt;/p&gt;
+&lt;p&gt;wget &lt;a href=&quot;https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo&quot;&gt;https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;yum remove -y docker docker-client docker-client-latest docker-common  docker-latest docker-latest-logrotate docker-logrotate docker-engine&lt;br&gt;yum remove -y yum-utils device-mapper-persistent-data lvm2&lt;br&gt;yum remove -y docker-ce docker-compose&lt;/p&gt;
+&lt;p&gt;yum install -y yum-utils device-mapper-persistent-data lvm2 epel-release&lt;br&gt;yum install -y docker-ce docker-compose&lt;/p&gt;
+&lt;p&gt;#某一版本之后，yum 貌似移除了docker-compose，需要到github官网下载二进制&lt;br&gt;#配置环境变量，或者 copy into &amp;#x2F;usr&amp;#x2F;bin&lt;br&gt;#Rename the relevant binary for your OS to docker-compose and copy it to $HOME&amp;#x2F;.docker&amp;#x2F;cli-plugins&lt;/p&gt;
+&lt;h1 id=&quot;腾讯云-docker-hub-镜像&quot;&gt;&lt;a href=&quot;#腾讯云-docker-hub-镜像&quot; class=&quot;headerlink&quot; title=&quot;腾讯云 docker hub 镜像&quot;&gt;&lt;/a&gt;腾讯云 docker hub 镜像&lt;/h1&gt;&lt;h1 id=&quot;export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot&quot;&gt;&lt;a href=&quot;#export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot&quot; class=&quot;headerlink&quot; title=&quot;export REGISTRY_MIRROR&amp;#x3D;”https://mirror.ccs.tencentyun.com&amp;quot;&quot;&gt;&lt;/a&gt;export REGISTRY_MIRROR&amp;#x3D;”&lt;a href=&quot;https://mirror.ccs.tencentyun.com&amp;quot;/&quot;&gt;https://mirror.ccs.tencentyun.com&amp;quot;&lt;/a&gt;&lt;/h1&gt;&lt;h1 id=&quot;DaoCloud-镜像&quot;&gt;&lt;a href=&quot;#DaoCloud-镜像&quot; class=&quot;headerlink&quot; title=&quot;DaoCloud 镜像&quot;&gt;&lt;/a&gt;DaoCloud 镜像&lt;/h1&gt;&lt;h1 id=&quot;export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot&quot;&gt;&lt;a href=&quot;#export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot&quot; class=&quot;headerlink&quot; title=&quot;export REGISTRY_MIRROR&amp;#x3D;”http://f1361db2.m.daocloud.io&amp;quot;&quot;&gt;&lt;/a&gt;export REGISTRY_MIRROR&amp;#x3D;”&lt;a href=&quot;http://f1361db2.m.daocloud.io&amp;quot;/&quot;&gt;http://f1361db2.m.daocloud.io&amp;quot;&lt;/a&gt;&lt;/h1&gt;&lt;h1 id=&quot;华为云镜像&quot;&gt;&lt;a href=&quot;#华为云镜像&quot; class=&quot;headerlink&quot; title=&quot;华为云镜像&quot;&gt;&lt;/a&gt;华为云镜像&lt;/h1&gt;</summary>
+    
+    
+    
+    <category term="CNCF 云原生" scheme="http://jnan806.panpan.cloud/categories/CNCF-%E4%BA%91%E5%8E%9F%E7%94%9F/"/>
+    
+    
+    <category term="docker" scheme="http://jnan806.panpan.cloud/tags/docker/"/>
+    
+    <category term="容器化" scheme="http://jnan806.panpan.cloud/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>kubernetes</title>
     <link href="http://jnan806.panpan.cloud/2018/11/25/cncf/kubernetes/kubernetes/"/>
     <id>http://jnan806.panpan.cloud/2018/11/25/cncf/kubernetes/kubernetes/</id>
@@ -190,39 +218,30 @@
     <category term="CNCF 云原生" scheme="http://jnan806.panpan.cloud/categories/CNCF-%E4%BA%91%E5%8E%9F%E7%94%9F/"/>
     
     
-    <category term="kubernetes" scheme="http://jnan806.panpan.cloud/tags/kubernetes/"/>
-    
     <category term="容器化" scheme="http://jnan806.panpan.cloud/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/"/>
+    
+    <category term="kubernetes" scheme="http://jnan806.panpan.cloud/tags/kubernetes/"/>
     
     <category term="云原生" scheme="http://jnan806.panpan.cloud/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/"/>
     
   </entry>
   
   <entry>
-    <title>docker</title>
-    <link href="http://jnan806.panpan.cloud/2018/11/25/cncf/docker/docker/"/>
-    <id>http://jnan806.panpan.cloud/2018/11/25/cncf/docker/docker/</id>
-    <published>2018-11-25T04:21:44.000Z</published>
-    <updated>2022-08-29T13:33:31.043Z</updated>
-    
-    <content type="html"><![CDATA[<p>cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</p><p>wget <a href="https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p><p>yum remove -y docker docker-client docker-client-latest docker-common  docker-latest docker-latest-logrotate docker-logrotate docker-engine<br>yum remove -y yum-utils device-mapper-persistent-data lvm2<br>yum remove -y docker-ce docker-compose</p><p>yum install -y yum-utils device-mapper-persistent-data lvm2 epel-release<br>yum install -y docker-ce docker-compose</p><p>#某一版本之后，yum 貌似移除了docker-compose，需要到github官网下载二进制<br>#配置环境变量，或者 copy into &#x2F;usr&#x2F;bin<br>#Rename the relevant binary for your OS to docker-compose and copy it to $HOME&#x2F;.docker&#x2F;cli-plugins</p><h1 id="腾讯云-docker-hub-镜像"><a href="#腾讯云-docker-hub-镜像" class="headerlink" title="腾讯云 docker hub 镜像"></a>腾讯云 docker hub 镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot"><a href="#export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”https://mirror.ccs.tencentyun.com&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="https://mirror.ccs.tencentyun.com&quot;/">https://mirror.ccs.tencentyun.com&quot;</a></h1><h1 id="DaoCloud-镜像"><a href="#DaoCloud-镜像" class="headerlink" title="DaoCloud 镜像"></a>DaoCloud 镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot"><a href="#export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”http://f1361db2.m.daocloud.io&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="http://f1361db2.m.daocloud.io&quot;/">http://f1361db2.m.daocloud.io&quot;</a></h1><h1 id="华为云镜像"><a href="#华为云镜像" class="headerlink" title="华为云镜像"></a>华为云镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”https-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot"><a href="#export-REGISTRY-MIRROR-x3D-”https-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;/">https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;</a></h1><h1 id="阿里云-docker-hub-镜像"><a href="#阿里云-docker-hub-镜像" class="headerlink" title="阿里云 docker hub 镜像"></a>阿里云 docker hub 镜像</h1><p>export REGISTRY_MIRROR&#x3D;<a href="https://registry.cn-hangzhou.aliyuncs.com/">https://registry.cn-hangzhou.aliyuncs.com</a></p><h1 id="Jiajiangnan"><a href="#Jiajiangnan" class="headerlink" title="Jiajiangnan"></a>Jiajiangnan</h1><p><a href="https://t92txq8i.mirror.aliyuncs.com/">https://t92txq8i.mirror.aliyuncs.com</a></p><p>mkdir -p &#x2F;etc&#x2F;docker</p><p>vim &#x2F;etc&#x2F;docker&#x2F;daemon.json<br>{<br>“registry-mirrors”:[“<a href="https://registry.cn-hangzhou.aliyuncs.com&quot;/">https://registry.cn-hangzhou.aliyuncs.com&quot;</a>, “<a href="https://registry.docker-cn.com&quot;]">https://registry.docker-cn.com&quot;]</a>,<br>“insecure-registries”:[“node03.registry.com:5000”],</p><h1 id="“exec-opts”-“native-cgroupdriver-x3D-systemd”"><a href="#“exec-opts”-“native-cgroupdriver-x3D-systemd”" class="headerlink" title="“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],"></a>“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],</h1><h1 id="“graph”-”-x2F-home-x2F-docker-ce”"><a href="#“graph”-”-x2F-home-x2F-docker-ce”" class="headerlink" title="“graph”:”&#x2F;home&#x2F;docker-ce”,"></a>“graph”:”&#x2F;home&#x2F;docker-ce”,</h1><p>“data-root”:”&#x2F;home&#x2F;docker-ce”,<br>“log-driver”:”json-file”,<br>“log-opts”:{“max-size”:”50m”, “max-file”:”10”}<br>}</p><p>vim &#x2F;etc&#x2F;sysctl.conf<br>#net.bridge.bridge-nf-call-ip6tables &#x3D; 1<br>net.bridge.bridge-nf-call-iptables &#x3D; 1<br>net.bridge.bridge-nf-call-arptables &#x3D; 1<br>net.ipv4.ip_forward &#x3D; 1</p><p>vm.swappiness&#x3D;0</p><p>systemctl daemon-reload<br>systemctl start docker<br>systemctl enable docker</p><p>yum install -y docker-registry</p><p>vim  &#x2F;etc&#x2F;docker-distribution&#x2F;registry&#x2F;config.yml</p><p>systemctl start docker-distribution<br>systemctl enable docker-distribution</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;cd &amp;#x2F;etc&amp;#x2F;yum.repos.d&amp;#x2F;&lt;/p&gt;
-&lt;p&gt;wget &lt;a href=&quot;https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo&quot;&gt;https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;yum remove -y docker docker-client docker-client-latest docker-common  docker-latest docker-latest-logrotate docker-logrotate docker-engine&lt;br&gt;yum remove -y yum-utils device-mapper-persistent-data lvm2&lt;br&gt;yum remove -y docker-ce docker-compose&lt;/p&gt;
-&lt;p&gt;yum install -y yum-utils device-mapper-persistent-data lvm2 epel-release&lt;br&gt;yum install -y docker-ce docker-compose&lt;/p&gt;
-&lt;p&gt;#某一版本之后，yum 貌似移除了docker-compose，需要到github官网下载二进制&lt;br&gt;#配置环境变量，或者 copy into &amp;#x2F;usr&amp;#x2F;bin&lt;br&gt;#Rename the relevant binary for your OS to docker-compose and copy it to $HOME&amp;#x2F;.docker&amp;#x2F;cli-plugins&lt;/p&gt;
-&lt;h1 id=&quot;腾讯云-docker-hub-镜像&quot;&gt;&lt;a href=&quot;#腾讯云-docker-hub-镜像&quot; class=&quot;headerlink&quot; title=&quot;腾讯云 docker hub 镜像&quot;&gt;&lt;/a&gt;腾讯云 docker hub 镜像&lt;/h1&gt;&lt;h1 id=&quot;export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot&quot;&gt;&lt;a href=&quot;#export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot&quot; class=&quot;headerlink&quot; title=&quot;export REGISTRY_MIRROR&amp;#x3D;”https://mirror.ccs.tencentyun.com&amp;quot;&quot;&gt;&lt;/a&gt;export REGISTRY_MIRROR&amp;#x3D;”&lt;a href=&quot;https://mirror.ccs.tencentyun.com&amp;quot;/&quot;&gt;https://mirror.ccs.tencentyun.com&amp;quot;&lt;/a&gt;&lt;/h1&gt;&lt;h1 id=&quot;DaoCloud-镜像&quot;&gt;&lt;a href=&quot;#DaoCloud-镜像&quot; class=&quot;headerlink&quot; title=&quot;DaoCloud 镜像&quot;&gt;&lt;/a&gt;DaoCloud 镜像&lt;/h1&gt;&lt;h1 id=&quot;export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot&quot;&gt;&lt;a href=&quot;#export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot&quot; class=&quot;headerlink&quot; title=&quot;export REGISTRY_MIRROR&amp;#x3D;”http://f1361db2.m.daocloud.io&amp;quot;&quot;&gt;&lt;/a&gt;export REGISTRY_MIRROR&amp;#x3D;”&lt;a href=&quot;http://f1361db2.m.daocloud.io&amp;quot;/&quot;&gt;http://f1361db2.m.daocloud.io&amp;quot;&lt;/a&gt;&lt;/h1&gt;&lt;h1 id=&quot;华为云镜像&quot;&gt;&lt;a href=&quot;#华为云镜像&quot; class=&quot;headerlink&quot; title=&quot;华为云镜像&quot;&gt;&lt;/a&gt;华为云镜像&lt;/h1&gt;</summary>
+    <title>nexus</title>
+    <link href="http://jnan806.panpan.cloud/2017/05/12/tools/nexus/nexus/"/>
+    <id>http://jnan806.panpan.cloud/2017/05/12/tools/nexus/nexus/</id>
+    <published>2017-05-12T12:23:23.000Z</published>
+    <updated>2017-05-12T13:03:19.000Z</updated>
     
     
     
-    <category term="CNCF 云原生" scheme="http://jnan806.panpan.cloud/categories/CNCF-%E4%BA%91%E5%8E%9F%E7%94%9F/"/>
+    
+    <category term="Tools" scheme="http://jnan806.panpan.cloud/categories/Tools/"/>
     
     
-    <category term="容器化" scheme="http://jnan806.panpan.cloud/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/"/>
+    <category term="nexus" scheme="http://jnan806.panpan.cloud/tags/nexus/"/>
     
-    <category term="docker" scheme="http://jnan806.panpan.cloud/tags/docker/"/>
+    <category term="中央仓库" scheme="http://jnan806.panpan.cloud/tags/%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/"/>
     
   </entry>
   
@@ -315,25 +334,6 @@
     <category term="git" scheme="http://jnan806.panpan.cloud/tags/git/"/>
     
     <category term="开源社区" scheme="http://jnan806.panpan.cloud/tags/%E5%BC%80%E6%BA%90%E7%A4%BE%E5%8C%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nexus</title>
-    <link href="http://jnan806.panpan.cloud/2017/05/12/tools/nexus/nexus/"/>
-    <id>http://jnan806.panpan.cloud/2017/05/12/tools/nexus/nexus/</id>
-    <published>2017-05-12T12:23:23.000Z</published>
-    <updated>2017-05-12T13:03:19.000Z</updated>
-    
-    
-    
-    
-    <category term="Tools" scheme="http://jnan806.panpan.cloud/categories/Tools/"/>
-    
-    
-    <category term="nexus" scheme="http://jnan806.panpan.cloud/tags/nexus/"/>
-    
-    <category term="中央仓库" scheme="http://jnan806.panpan.cloud/tags/%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/"/>
     
   </entry>
   

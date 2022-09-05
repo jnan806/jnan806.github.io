@@ -182,35 +182,6 @@
     
     
     <entry>
-      <title>kubernetes</title>
-      <link href="/2018/11/25/cncf/kubernetes/kubernetes/"/>
-      <url>/2018/11/25/cncf/kubernetes/kubernetes/</url>
-      
-        <content type="html"><![CDATA[<p>cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</p><p>vim kubernetes.repo<br>[kubernetes]<br>name&#x3D;Kubernetes<br>baseurl&#x3D;<a href="http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64">http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</a><br>enabled&#x3D;1<br>gpgcheck&#x3D;0<br>repo_gpgcheck&#x3D;0<br>gpgkey&#x3D;<a href="http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg">http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</a><br><a href="http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg">http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</a></p><p>yum install -y bash-completion</p><h1 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h1><p>yum remove -y kubelet kubeadm kubectl</p><p>yum install -y kubelet-1.14.0  &amp;&amp; yum install -y  kubeadm-1.14.0  kubectl-1.14.0</p><p>vim ~&#x2F;.bashrc<br>alias v&#x3D;vim<br>alias k&#x3D;kubectl<br>alias kdp&#x3D;‘kubectl delete pod –force –grace-period&#x3D;0’<br>alias kn&#x3D;‘kubectl config set-context —current –namespace’<br>source &lt; (kubectl completion bash)<br>completion -F __start_kubectl k</p><p>systemctl enable kubelet</p><p>vim &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf<br>net.bridge.bridge-nf-call-iptables &#x3D; 1<br>#net.bridge.bridge-nf-call-ip6tables &#x3D; 1<br>net.bridge.bridge-nf-call-arptables &#x3D; 1<br>net.ipv4.ip_forward &#x3D; 1</p><p>vm.swappiness&#x3D;0</p><p>sudo sysctl -p &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf</p><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;kubelet<br>KUBELET_EXTRA_ARGS&#x3D;”–fail-swap-on&#x3D;false”</p><p>systemctl daemon-reload &amp;&amp; systemctl restart docker &amp;&amp; systemctl restart kubelet</p><p>cd ~<br>kubeadm config print init-defaults &gt; &#x2F;root&#x2F;kubeadm-config.yaml</p><p>vim &#x2F;root&#x2F;kubeadm-master.config<br>–advertiseAddress: 192.168.86.11<br>–name: node51<br>–controlPlaneEndpoint: k8s.apiserver.com:6443(只有master需要)<br>–image-repository  registry.aliyuncs.com&#x2F;google_containers<br>– podSubnet: 10.88.0.0&#x2F;16<br>–pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12</p><h1 id="提前拉取镜像"><a href="#提前拉取镜像" class="headerlink" title="提前拉取镜像"></a>提前拉取镜像</h1><p>kubeadm config images pull –config &#x2F;root&#x2F;kubeadm-config.yaml</p><h1 id="master-初始化集群"><a href="#master-初始化集群" class="headerlink" title="master 初始化集群"></a>master 初始化集群</h1><p>kubeadm init –config &#x2F;root&#x2F;kubeadm-config.yaml –ignore-preflight-errors&#x3D;Swap<br>#或者直接以参数形式<br>kubeadm init –image-repository registry.aliyuncs.com&#x2F;google_containers –kubernetes-version&#x3D;v1.14.0 –pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12 –advertiseAddress: 192.168.86.11</p><p>#失败后的处理方式<br>journalctl -xefu kubelet<br>kubeadm reset -f</p><p>#配置<br>cd &#x2F;root<br>rm -rf $HOME&#x2F;.kube<br>mkdir -p $HOME&#x2F;.kube<br>sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf  $HOME&#x2F;.kube&#x2F;config<br>sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config<br>echo “export KUBECONFIG&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf” &gt;&gt; ~&#x2F;.bash_profile<br>source  ~&#x2F;.bash_profile</p><p>网络方案一、calico<br>cd ~<br>mkdir calico<br>cd calicao<br>wget <a href="https://kuboard.cn/install-script/v1.20.x/calico-operator.yaml">https://kuboard.cn/install-script/v1.20.x/calico-operator.yaml</a><br>wget <a href="https://kuboard.cn/install-script/v1.20.x/calico-custom-resources.yaml">https://kuboard.cn/install-script/v1.20.x/calico-custom-resources.yaml</a><br>kubectl apply -f calico-operator.yaml<br>sed -i “s#192.168.0.0&#x2F;16#${POD_SUBNET}#” calico-custom-resources.yaml<br>kubectl apply -f calico-custom-resources.yaml</p><p>网络方案二、flannel<br>cd ~<br>mkdir flannel<br>cd flannel<br>wget <a href="https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml">https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</a></p><h1 id="kube-flannel-yml-的-data-net-conf-json-Network-需要与-kubeadm-config-yaml-中的-networking-pod-network-cidr-保持一致"><a href="#kube-flannel-yml-的-data-net-conf-json-Network-需要与-kubeadm-config-yaml-中的-networking-pod-network-cidr-保持一致" class="headerlink" title="kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致"></a>kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致</h1><p>kubectl apply -f kube-flannel.yml<br>#若卡住不动，可以查看pod信息，然后下载相关镜像<br>docker pull quay.io&#x2F;coreos&#x2F;flannel:v0.11.0-amd64<br>#如果多网卡则修改yaml文件<br>args:</p><ul><li>–masq</li><li>–kube-subnet-mgr</li><li>–iface&#x3D;enp0s8（网卡名）</li></ul><p>#执行<br>kubectl apply -f kube-flannel.yml<br>kubectl get pods -n kube-system</p><h1 id="node节点"><a href="#node节点" class="headerlink" title="node节点"></a>node节点</h1><p>mkdir -p &#x2F;etc&#x2F;kubernetes<br>mkdir -p &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd</p><p>#token有效期是有限的（默认24h），如果旧的token过期，可以使用命令重新创建一条token<br>kubeadm token create –print-join-command</p><p>#加入node节点<br>kubeadm join k8s.apiserver.com:6443 –token 05eoyj.6x9dhm9q86u2xfmc –discovery-token-ca-cert-hash sha256:c6bd85e6c2b3ce88b9764e3462d4d0cbaab091a32522f685310ec3501683a756 –ignore-preflight-errors&#x3D;Swap</p><p>#加入master节点<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;sa.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;front-proxy-ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf &#x2F;etc&#x2F;kubernetes&#x2F;<br>kubeadm join k8s.apiserver.com:6443 –token 05eoyj.6x9dhm9q86u2xfmc –discovery-token-ca-cert-hash sha256:c6bd85e6c2b3ce88b9764e3462d4d0cbaab091a32522f685310ec3501683a756 –ignore-preflight-errors&#x3D;Swap –experimental-control-plane</p><p>#移除ndoe节点<br>#master上执行<br>kubectl delete node node13<br>#node上执行<br>kubeadm reset -f<br>ifconfig cni0 down &amp;&amp; ip link delete cni0<br>ifconfig flannel.1 down &amp;&amp; ip link delete flannel.1<br>rm -rf &#x2F;var&#x2F;lib&#x2F;cni&#x2F;<br>rm -rf &#x2F;etc&#x2F;kubernetes<br>rm -rf &#x2F;root&#x2F;.kube&#x2F;config<br>rm -rf &#x2F;var&#x2F;lib&#x2F;etcd</p><p>更新证书时间<br>kubeadm alpha certs renew all</p><p>查看证书时间<br>kubeadm alpha certs check-expiration</p><p>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-apiserver.yaml<br>添加到如下位置就行了</p><ul><li>command:<ul><li>kube-apiserver</li><li>–service-node-port-range&#x3D;1-65535</li></ul></li></ul><p>1.21之后，get cs （ComponentStatus） 报错<br>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-scheduler.yaml<br>注释掉 port&#x3D;0<br>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-controller-manager.yaml<br>注释掉 port&#x3D;0</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> CNCF 云原生 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> kubernetes </tag>
-            
-            <tag> 容器化 </tag>
-            
-            <tag> 云原生 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>docker</title>
       <link href="/2018/11/25/cncf/docker/docker/"/>
       <url>/2018/11/25/cncf/docker/docker/</url>
@@ -227,9 +198,9 @@
       
         <tags>
             
-            <tag> 容器化 </tag>
-            
             <tag> docker </tag>
+            
+            <tag> 容器化 </tag>
             
         </tags>
       
@@ -238,25 +209,27 @@
     
     
     <entry>
-      <title>开源社区中的 &quot;黑话&quot;</title>
-      <link href="/2017/05/12/tools/git/phrase/"/>
-      <url>/2017/05/12/tools/git/phrase/</url>
+      <title>kubernetes</title>
+      <link href="/2018/11/25/cncf/kubernetes/kubernetes/"/>
+      <url>/2018/11/25/cncf/kubernetes/kubernetes/</url>
       
-        <content type="html"><![CDATA[<table><thead><tr><th align="left">缩写</th><th align="left">全称</th><th align="left">解释</th></tr></thead><tbody><tr><td align="left">WIP</td><td align="left">Work In Progress</td><td align="left">正在进行中</td></tr><tr><td align="left">PR</td><td align="left">Pull Request</td><td align="left">请求拉取自己的代码, 通常指请求合并</td></tr><tr><td align="left">LGTM &#x2F; SGTM</td><td align="left">Looks&#x2F;Sounds Good To Me</td><td align="left">Riview 完别人的 PR，没有问题</td></tr><tr><td align="left">PTAL</td><td align="left">Please Take A Look</td><td align="left">帮我看下，请别人 review 自己的 PR</td></tr><tr><td align="left">RFC</td><td align="left">Request For Comments</td><td align="left">我们来一起讨论下</td></tr><tr><td align="left">ACK</td><td align="left">Acknowledgement</td><td align="left">我接受</td></tr><tr><td align="left">NACK &#x2F; NAK</td><td align="left">Negative Acknowledgement</td><td align="left">我不同意</td></tr><tr><td align="left">TBR</td><td align="left">To Be Reviewed</td><td align="left">提示维护者进行 review</td></tr><tr><td align="left">TBD</td><td align="left">To Be Done &#x2F; Defined &#x2F; Discussed &#x2F; Decided &#x2F; Determined</td><td align="left">根据语境不同意义有所区别，但一般都是还没搞定的意思</td></tr><tr><td align="left">CC</td><td align="left">Carbon Copy</td><td align="left">一般代表抄送别人的意思</td></tr><tr><td align="left">IIRC</td><td align="left">If I Remember Correctly</td><td align="left">如果我没记错</td></tr><tr><td align="left">TL;DR</td><td align="left">Too Long; Didn’t Read</td><td align="left">太长懒得看。也有文档在做简略描述之前会写这么一句</td></tr></tbody></table>]]></content>
+        <content type="html"><![CDATA[<p>cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</p><p>vim kubernetes.repo<br>[kubernetes]<br>name&#x3D;Kubernetes<br>baseurl&#x3D;<a href="http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64">http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</a><br>enabled&#x3D;1<br>gpgcheck&#x3D;0<br>repo_gpgcheck&#x3D;0<br>gpgkey&#x3D;<a href="http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg">http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</a><br><a href="http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg">http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</a></p><p>yum install -y bash-completion</p><h1 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h1><p>yum remove -y kubelet kubeadm kubectl</p><p>yum install -y kubelet-1.14.0  &amp;&amp; yum install -y  kubeadm-1.14.0  kubectl-1.14.0</p><p>vim ~&#x2F;.bashrc<br>alias v&#x3D;vim<br>alias k&#x3D;kubectl<br>alias kdp&#x3D;‘kubectl delete pod –force –grace-period&#x3D;0’<br>alias kn&#x3D;‘kubectl config set-context —current –namespace’<br>source &lt; (kubectl completion bash)<br>completion -F __start_kubectl k</p><p>systemctl enable kubelet</p><p>vim &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf<br>net.bridge.bridge-nf-call-iptables &#x3D; 1<br>#net.bridge.bridge-nf-call-ip6tables &#x3D; 1<br>net.bridge.bridge-nf-call-arptables &#x3D; 1<br>net.ipv4.ip_forward &#x3D; 1</p><p>vm.swappiness&#x3D;0</p><p>sudo sysctl -p &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf</p><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;kubelet<br>KUBELET_EXTRA_ARGS&#x3D;”–fail-swap-on&#x3D;false”</p><p>systemctl daemon-reload &amp;&amp; systemctl restart docker &amp;&amp; systemctl restart kubelet</p><p>cd ~<br>kubeadm config print init-defaults &gt; &#x2F;root&#x2F;kubeadm-config.yaml</p><p>vim &#x2F;root&#x2F;kubeadm-master.config<br>–advertiseAddress: 192.168.86.11<br>–name: node51<br>–controlPlaneEndpoint: k8s.apiserver.com:6443(只有master需要)<br>–image-repository  registry.aliyuncs.com&#x2F;google_containers<br>– podSubnet: 10.88.0.0&#x2F;16<br>–pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12</p><h1 id="提前拉取镜像"><a href="#提前拉取镜像" class="headerlink" title="提前拉取镜像"></a>提前拉取镜像</h1><p>kubeadm config images pull –config &#x2F;root&#x2F;kubeadm-config.yaml</p><h1 id="master-初始化集群"><a href="#master-初始化集群" class="headerlink" title="master 初始化集群"></a>master 初始化集群</h1><p>kubeadm init –config &#x2F;root&#x2F;kubeadm-config.yaml –ignore-preflight-errors&#x3D;Swap<br>#或者直接以参数形式<br>kubeadm init –image-repository registry.aliyuncs.com&#x2F;google_containers –kubernetes-version&#x3D;v1.14.0 –pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12 –advertiseAddress: 192.168.86.11</p><p>#失败后的处理方式<br>journalctl -xefu kubelet<br>kubeadm reset -f</p><p>#配置<br>cd &#x2F;root<br>rm -rf $HOME&#x2F;.kube<br>mkdir -p $HOME&#x2F;.kube<br>sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf  $HOME&#x2F;.kube&#x2F;config<br>sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config<br>echo “export KUBECONFIG&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf” &gt;&gt; ~&#x2F;.bash_profile<br>source  ~&#x2F;.bash_profile</p><p>网络方案一、calico<br>cd ~<br>mkdir calico<br>cd calicao<br>wget <a href="https://kuboard.cn/install-script/v1.20.x/calico-operator.yaml">https://kuboard.cn/install-script/v1.20.x/calico-operator.yaml</a><br>wget <a href="https://kuboard.cn/install-script/v1.20.x/calico-custom-resources.yaml">https://kuboard.cn/install-script/v1.20.x/calico-custom-resources.yaml</a><br>kubectl apply -f calico-operator.yaml<br>sed -i “s#192.168.0.0&#x2F;16#${POD_SUBNET}#” calico-custom-resources.yaml<br>kubectl apply -f calico-custom-resources.yaml</p><p>网络方案二、flannel<br>cd ~<br>mkdir flannel<br>cd flannel<br>wget <a href="https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml">https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</a></p><h1 id="kube-flannel-yml-的-data-net-conf-json-Network-需要与-kubeadm-config-yaml-中的-networking-pod-network-cidr-保持一致"><a href="#kube-flannel-yml-的-data-net-conf-json-Network-需要与-kubeadm-config-yaml-中的-networking-pod-network-cidr-保持一致" class="headerlink" title="kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致"></a>kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致</h1><p>kubectl apply -f kube-flannel.yml<br>#若卡住不动，可以查看pod信息，然后下载相关镜像<br>docker pull quay.io&#x2F;coreos&#x2F;flannel:v0.11.0-amd64<br>#如果多网卡则修改yaml文件<br>args:</p><ul><li>–masq</li><li>–kube-subnet-mgr</li><li>–iface&#x3D;enp0s8（网卡名）</li></ul><p>#执行<br>kubectl apply -f kube-flannel.yml<br>kubectl get pods -n kube-system</p><h1 id="node节点"><a href="#node节点" class="headerlink" title="node节点"></a>node节点</h1><p>mkdir -p &#x2F;etc&#x2F;kubernetes<br>mkdir -p &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd</p><p>#token有效期是有限的（默认24h），如果旧的token过期，可以使用命令重新创建一条token<br>kubeadm token create –print-join-command</p><p>#加入node节点<br>kubeadm join k8s.apiserver.com:6443 –token 05eoyj.6x9dhm9q86u2xfmc –discovery-token-ca-cert-hash sha256:c6bd85e6c2b3ce88b9764e3462d4d0cbaab091a32522f685310ec3501683a756 –ignore-preflight-errors&#x3D;Swap</p><p>#加入master节点<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;sa.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;front-proxy-ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf &#x2F;etc&#x2F;kubernetes&#x2F;<br>kubeadm join k8s.apiserver.com:6443 –token 05eoyj.6x9dhm9q86u2xfmc –discovery-token-ca-cert-hash sha256:c6bd85e6c2b3ce88b9764e3462d4d0cbaab091a32522f685310ec3501683a756 –ignore-preflight-errors&#x3D;Swap –experimental-control-plane</p><p>#移除ndoe节点<br>#master上执行<br>kubectl delete node node13<br>#node上执行<br>kubeadm reset -f<br>ifconfig cni0 down &amp;&amp; ip link delete cni0<br>ifconfig flannel.1 down &amp;&amp; ip link delete flannel.1<br>rm -rf &#x2F;var&#x2F;lib&#x2F;cni&#x2F;<br>rm -rf &#x2F;etc&#x2F;kubernetes<br>rm -rf &#x2F;root&#x2F;.kube&#x2F;config<br>rm -rf &#x2F;var&#x2F;lib&#x2F;etcd</p><p>更新证书时间<br>kubeadm alpha certs renew all</p><p>查看证书时间<br>kubeadm alpha certs check-expiration</p><p>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-apiserver.yaml<br>添加到如下位置就行了</p><ul><li>command:<ul><li>kube-apiserver</li><li>–service-node-port-range&#x3D;1-65535</li></ul></li></ul><p>1.21之后，get cs （ComponentStatus） 报错<br>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-scheduler.yaml<br>注释掉 port&#x3D;0<br>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-controller-manager.yaml<br>注释掉 port&#x3D;0</p>]]></content>
       
       
       <categories>
           
-          <category> Tools </category>
+          <category> CNCF 云原生 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> git </tag>
+            <tag> 容器化 </tag>
             
-            <tag> 开源社区 </tag>
+            <tag> kubernetes </tag>
+            
+            <tag> 云原生 </tag>
             
         </tags>
       
@@ -284,6 +257,33 @@
             <tag> nexus </tag>
             
             <tag> 中央仓库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>开源社区中的 &quot;黑话&quot;</title>
+      <link href="/2017/05/12/tools/git/phrase/"/>
+      <url>/2017/05/12/tools/git/phrase/</url>
+      
+        <content type="html"><![CDATA[<table><thead><tr><th align="left">缩写</th><th align="left">全称</th><th align="left">解释</th></tr></thead><tbody><tr><td align="left">WIP</td><td align="left">Work In Progress</td><td align="left">正在进行中</td></tr><tr><td align="left">PR</td><td align="left">Pull Request</td><td align="left">请求拉取自己的代码, 通常指请求合并</td></tr><tr><td align="left">LGTM &#x2F; SGTM</td><td align="left">Looks&#x2F;Sounds Good To Me</td><td align="left">Riview 完别人的 PR，没有问题</td></tr><tr><td align="left">PTAL</td><td align="left">Please Take A Look</td><td align="left">帮我看下，请别人 review 自己的 PR</td></tr><tr><td align="left">RFC</td><td align="left">Request For Comments</td><td align="left">我们来一起讨论下</td></tr><tr><td align="left">ACK</td><td align="left">Acknowledgement</td><td align="left">我接受</td></tr><tr><td align="left">NACK &#x2F; NAK</td><td align="left">Negative Acknowledgement</td><td align="left">我不同意</td></tr><tr><td align="left">TBR</td><td align="left">To Be Reviewed</td><td align="left">提示维护者进行 review</td></tr><tr><td align="left">TBD</td><td align="left">To Be Done &#x2F; Defined &#x2F; Discussed &#x2F; Decided &#x2F; Determined</td><td align="left">根据语境不同意义有所区别，但一般都是还没搞定的意思</td></tr><tr><td align="left">CC</td><td align="left">Carbon Copy</td><td align="left">一般代表抄送别人的意思</td></tr><tr><td align="left">IIRC</td><td align="left">If I Remember Correctly</td><td align="left">如果我没记错</td></tr><tr><td align="left">TL;DR</td><td align="left">Too Long; Didn’t Read</td><td align="left">太长懒得看。也有文档在做简略描述之前会写这么一句</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> Tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+            <tag> 开源社区 </tag>
             
         </tags>
       
