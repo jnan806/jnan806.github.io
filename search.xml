@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Gloang 初探 - Hello World</title>
+      <link href="/2022/05/25/golang/helloworld/"/>
+      <url>/2022/05/25/golang/helloworld/</url>
+      
+        <content type="html"><![CDATA[<h1 id="什么是-Go"><a href="#什么是-Go" class="headerlink" title="什么是 Go"></a>什么是 Go</h1><p>Go语言是谷歌2009年发布的第二款开源编程语言，它专门针对多处理器系统应用程序的编程进行了优化，它是一种系统语言其非常有用和强大，其程序可以媲美C或C++代码的速度，而且更加安全、支持并行进程。</p><h1 id="Go-语言环境安装"><a href="#Go-语言环境安装" class="headerlink" title="Go 语言环境安装"></a>Go 语言环境安装</h1><p>Go 语言支持以下系统：</p><ul><li>Linux</li><li>FreeBSD</li><li>Mac OS X（也称为 Darwin）</li><li>Window</li></ul><h2 id="UNIX-x2F-Linux-x2F-MacOSX-x2F-FreeBSD-安装"><a href="#UNIX-x2F-Linux-x2F-MacOSX-x2F-FreeBSD-安装" class="headerlink" title="UNIX&#x2F;Linux&#x2F;MacOSX&#x2F;FreeBSD 安装"></a>UNIX&#x2F;Linux&#x2F;MacOSX&#x2F;FreeBSD 安装</h2><p>众所周知, UNIX&#x2F;Linux&#x2F;Mac OS X, 和 FreeBSD 都是基于 Unix 开发的操作系统，因此，在一些软件的安装上有些类似，<br>而在 Golang 语言环境的安装上，几乎没有区别。</p><p>1、下载源码包 进入官网 <a href="https://golang.google.cn/dl/">https://golang.google.cn/dl/</a> 下载对应版本的 Golang 源码包<br>2、将下载的源码包解压至 &#x2F;usr&#x2F;local目录。 <code>tar -C /usr/local -xzf go1.15.2.linux-amd64.tar.gz</code><br>3、添加环境变量<code>PATH</code>： <code>export PATH=$PATH:/usr/local/go/bin</code></p><h2 id="Windows-安装"><a href="#Windows-安装" class="headerlink" title="Windows 安装"></a>Windows 安装</h2><p>Windows 需要下载 .msi 后缀(在下载列表中可以找到该文件，如go1.4.2.windows-amd64.msi)的安装包来安装。<br>默认情况下.msi文件会安装在 c:\Go 目录下。你可以将 c:\Go\bin 目录添加到 PATH 环境变量中。添加后你需要重启命令窗口才能生效。</p><h2 id="其他参数设置"><a href="#其他参数设置" class="headerlink" title="其他参数设置"></a>其他参数设置</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># GOPATH</span></span></span><br><span class="line">export GOPATH=/Users/J/opt/dev/env/golang/gopath</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># GO111MODULE</span></span></span><br><span class="line">export GO111MODULE=on</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># GOPROXY</span></span></span><br><span class="line">export GOPROXY=https://goproxy.cn,direct</span><br></pre></td></tr></table></figure><p><strong>GOPROXY 可选</strong><br>Go1.12版本之后，开始使用<code>go mod</code>模式来管理依赖环境了<br>由于国内访问不到默认的GOPROXY配置链接，所以我们需要换一个PROXY，这里推荐使用 <a href="https://goproxy.io/">https://goproxy.io</a> 或 <a href="https://goproxy.cn./">https://goproxy.cn。</a></p><p><strong>GO111MODULE 可选</strong><br>Go Mod 要启用go module支持首先要设置环境变量GO111MODULE，通过它可以开启或关闭模块支持，它有三个可选值：off、on、auto，默认值是auto。<br>GO111MODULE&#x3D;off，禁用模块支持，编译时会从GOPATH和vendor文件夹中查找包。<br>GO111MODULE&#x3D;on，启用模块支持，编译时会忽略GOPATH和vendor文件夹，只根据 go.mod下载依赖。<br>GO111MODULE&#x3D;auto，当项目在$GOPATH&#x2F;src外且项目根目录有go.mod文件时，开启模块支持。  </p><p><strong>GOPATH 可选</strong><br>Golang 第三方依赖包可配置下载路径，具体通过通过 GOPAHT 来配置，一次下载全局使用。</p><h2 id="验证是否安装成功"><a href="#验证是否安装成功" class="headerlink" title="验证是否安装成功"></a>验证是否安装成功</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure><p>如果正确显示版本号，则说明安装成功</p><h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><p>编写 Hello World 代码</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   fmt.Println(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>直接运行</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go run test.go</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Golang </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Golang </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>spring-cloud</title>
+      <link href="/2020/03/05/springcloud/spring-cloud/"/>
+      <url>/2020/03/05/springcloud/spring-cloud/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Spring-Cloud </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> spring </tag>
+            
+            <tag> spring-boot </tag>
+            
+            <tag> spring-cloud </tag>
+            
+            <tag> 微服务 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>spring-cloud-alibaba</title>
+      <link href="/2020/03/05/springcloud/springcloud-alibaba/spring-cloud-alibaba/"/>
+      <url>/2020/03/05/springcloud/springcloud-alibaba/spring-cloud-alibaba/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Spring-Cloud </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> spring </tag>
+            
+            <tag> spring-boot </tag>
+            
+            <tag> spring-cloud </tag>
+            
+            <tag> 微服务 </tag>
+            
+            <tag> spring-cloud-alibaba </tag>
+            
+            <tag> alibaba </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ssl</title>
+      <link href="/2019/08/25/tools/ssl/ssl/"/>
+      <url>/2019/08/25/tools/ssl/ssl/</url>
+      
+        <content type="html"><![CDATA[<p>安装了 <code>openssl</code> 之后，执行</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">openssl req -x509 -newkey rsa:2048 -nodes -days 36500 -keyout ssl/$&#123;fileName&#125;.key -out ssl/$&#123;fileName&#125;.crt </span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> https </tag>
+            
+            <tag> ssl自签证书 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>spring 利器 IOC</title>
+      <link href="/2019/03/05/spring/spring-ioc/"/>
+      <url>/2019/03/05/spring/spring-ioc/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Spring </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> spring </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>spring 脚手架 springboot</title>
+      <link href="/2019/03/05/spring/springboot/spring-boot/"/>
+      <url>/2019/03/05/spring/springboot/spring-boot/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Spring </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> spring </tag>
+            
+            <tag> spring-boot </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker</title>
+      <link href="/2018/11/25/cncf/docker/docker/"/>
+      <url>/2018/11/25/cncf/docker/docker/</url>
+      
+        <content type="html"><![CDATA[<p>cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</p><p>wget <a href="https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p><p>yum remove -y docker docker-client docker-client-latest docker-common  docker-latest docker-latest-logrotate docker-logrotate docker-engine<br>yum remove -y yum-utils device-mapper-persistent-data lvm2<br>yum remove -y docker-ce docker-compose</p><p>yum install -y yum-utils device-mapper-persistent-data lvm2 epel-release<br>yum install -y docker-ce docker-compose</p><p>#某一版本之后，yum 貌似移除了docker-compose，需要到github官网下载二进制<br>#配置环境变量，或者 copy into &#x2F;usr&#x2F;bin<br>#Rename the relevant binary for your OS to docker-compose and copy it to $HOME&#x2F;.docker&#x2F;cli-plugins</p><h1 id="腾讯云-docker-hub-镜像"><a href="#腾讯云-docker-hub-镜像" class="headerlink" title="腾讯云 docker hub 镜像"></a>腾讯云 docker hub 镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot"><a href="#export-REGISTRY-MIRROR-x3D-”https-mirror-ccs-tencentyun-com-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”https://mirror.ccs.tencentyun.com&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="https://mirror.ccs.tencentyun.com&quot;/">https://mirror.ccs.tencentyun.com&quot;</a></h1><h1 id="DaoCloud-镜像"><a href="#DaoCloud-镜像" class="headerlink" title="DaoCloud 镜像"></a>DaoCloud 镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot"><a href="#export-REGISTRY-MIRROR-x3D-”http-f1361db2-m-daocloud-io-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”http://f1361db2.m.daocloud.io&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="http://f1361db2.m.daocloud.io&quot;/">http://f1361db2.m.daocloud.io&quot;</a></h1><h1 id="华为云镜像"><a href="#华为云镜像" class="headerlink" title="华为云镜像"></a>华为云镜像</h1><h1 id="export-REGISTRY-MIRROR-x3D-”https-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot"><a href="#export-REGISTRY-MIRROR-x3D-”https-05f073ad3c0010ea0f4bc00b7105ec20-mirror-swr-myhuaweicloud-com-quot" class="headerlink" title="export REGISTRY_MIRROR&#x3D;”https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;"></a>export REGISTRY_MIRROR&#x3D;”<a href="https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;/">https://05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com&quot;</a></h1><h1 id="阿里云-docker-hub-镜像"><a href="#阿里云-docker-hub-镜像" class="headerlink" title="阿里云 docker hub 镜像"></a>阿里云 docker hub 镜像</h1><p>export REGISTRY_MIRROR&#x3D;<a href="https://registry.cn-hangzhou.aliyuncs.com/">https://registry.cn-hangzhou.aliyuncs.com</a></p><h1 id="Jiajiangnan"><a href="#Jiajiangnan" class="headerlink" title="Jiajiangnan"></a>Jiajiangnan</h1><p><a href="https://t92txq8i.mirror.aliyuncs.com/">https://t92txq8i.mirror.aliyuncs.com</a></p><p>mkdir -p &#x2F;etc&#x2F;docker</p><p>vim &#x2F;etc&#x2F;docker&#x2F;daemon.json<br>{<br>“registry-mirrors”:[“<a href="https://registry.cn-hangzhou.aliyuncs.com&quot;/">https://registry.cn-hangzhou.aliyuncs.com&quot;</a>, “<a href="https://registry.docker-cn.com&quot;]">https://registry.docker-cn.com&quot;]</a>,<br>“insecure-registries”:[“node03.registry.com:5000”],</p><h1 id="“exec-opts”-“native-cgroupdriver-x3D-systemd”"><a href="#“exec-opts”-“native-cgroupdriver-x3D-systemd”" class="headerlink" title="“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],"></a>“exec-opts”:[“native.cgroupdriver&#x3D;systemd”],</h1><h1 id="“graph”-”-x2F-home-x2F-docker-ce”"><a href="#“graph”-”-x2F-home-x2F-docker-ce”" class="headerlink" title="“graph”:”&#x2F;home&#x2F;docker-ce”,"></a>“graph”:”&#x2F;home&#x2F;docker-ce”,</h1><p>“data-root”:”&#x2F;home&#x2F;docker-ce”,<br>“log-driver”:”json-file”,<br>“log-opts”:{“max-size”:”50m”, “max-file”:”10”}<br>}</p><p>vim &#x2F;etc&#x2F;sysctl.conf<br>#net.bridge.bridge-nf-call-ip6tables &#x3D; 1<br>net.bridge.bridge-nf-call-iptables &#x3D; 1<br>net.bridge.bridge-nf-call-arptables &#x3D; 1<br>net.ipv4.ip_forward &#x3D; 1</p><p>vm.swappiness&#x3D;0</p><p>systemctl daemon-reload<br>systemctl start docker<br>systemctl enable docker</p><p>yum install -y docker-registry</p><p>vim  &#x2F;etc&#x2F;docker-distribution&#x2F;registry&#x2F;config.yml</p><p>systemctl start docker-distribution<br>systemctl enable docker-distribution</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CNCF 云原生 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> 容器化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>kubernetes</title>
+      <link href="/2018/11/25/cncf/kubernetes/kubernetes/"/>
+      <url>/2018/11/25/cncf/kubernetes/kubernetes/</url>
+      
+        <content type="html"><![CDATA[<p>cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</p><p>vim kubernetes.repo<br>[kubernetes]<br>name&#x3D;Kubernetes<br>baseurl&#x3D;<a href="http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64">http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</a><br>enabled&#x3D;1<br>gpgcheck&#x3D;0<br>repo_gpgcheck&#x3D;0<br>gpgkey&#x3D;<a href="http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg">http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</a><br><a href="http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg">http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</a></p><p>yum install -y bash-completion</p><h1 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h1><p>yum remove -y kubelet kubeadm kubectl</p><p>yum install -y kubelet-1.14.0  &amp;&amp; yum install -y  kubeadm-1.14.0  kubectl-1.14.0</p><p>vim ~&#x2F;.bashrc<br>alias v&#x3D;vim<br>alias k&#x3D;kubectl<br>alias kdp&#x3D;‘kubectl delete pod –force –grace-period&#x3D;0’<br>alias kn&#x3D;‘kubectl config set-context —current –namespace’<br>source &lt; (kubectl completion bash)<br>completion -F __start_kubectl k</p><p>systemctl enable kubelet</p><p>vim &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf<br>net.bridge.bridge-nf-call-iptables &#x3D; 1<br>#net.bridge.bridge-nf-call-ip6tables &#x3D; 1<br>net.bridge.bridge-nf-call-arptables &#x3D; 1<br>net.ipv4.ip_forward &#x3D; 1</p><p>vm.swappiness&#x3D;0</p><p>sudo sysctl -p &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf</p><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;kubelet<br>KUBELET_EXTRA_ARGS&#x3D;”–fail-swap-on&#x3D;false”</p><p>systemctl daemon-reload &amp;&amp; systemctl restart docker &amp;&amp; systemctl restart kubelet</p><p>cd ~<br>kubeadm config print init-defaults &gt; &#x2F;root&#x2F;kubeadm-config.yaml</p><p>vim &#x2F;root&#x2F;kubeadm-master.config<br>–advertiseAddress: 192.168.86.11<br>–name: node51<br>–controlPlaneEndpoint: k8s.apiserver.com:6443(只有master需要)<br>–image-repository  registry.aliyuncs.com&#x2F;google_containers<br>– podSubnet: 10.88.0.0&#x2F;16<br>–pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12</p><h1 id="提前拉取镜像"><a href="#提前拉取镜像" class="headerlink" title="提前拉取镜像"></a>提前拉取镜像</h1><p>kubeadm config images pull –config &#x2F;root&#x2F;kubeadm-config.yaml</p><h1 id="master-初始化集群"><a href="#master-初始化集群" class="headerlink" title="master 初始化集群"></a>master 初始化集群</h1><p>kubeadm init –config &#x2F;root&#x2F;kubeadm-config.yaml –ignore-preflight-errors&#x3D;Swap<br>#或者直接以参数形式<br>kubeadm init –image-repository registry.aliyuncs.com&#x2F;google_containers –kubernetes-version&#x3D;v1.14.0 –pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12 –advertiseAddress: 192.168.86.11</p><p>#失败后的处理方式<br>journalctl -xefu kubelet<br>kubeadm reset -f</p><p>#配置<br>cd &#x2F;root<br>rm -rf $HOME&#x2F;.kube<br>mkdir -p $HOME&#x2F;.kube<br>sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf  $HOME&#x2F;.kube&#x2F;config<br>sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config<br>echo “export KUBECONFIG&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf” &gt;&gt; ~&#x2F;.bash_profile<br>source  ~&#x2F;.bash_profile</p><p>网络方案一、calico<br>cd ~<br>mkdir calico<br>cd calicao<br>wget <a href="https://kuboard.cn/install-script/v1.20.x/calico-operator.yaml">https://kuboard.cn/install-script/v1.20.x/calico-operator.yaml</a><br>wget <a href="https://kuboard.cn/install-script/v1.20.x/calico-custom-resources.yaml">https://kuboard.cn/install-script/v1.20.x/calico-custom-resources.yaml</a><br>kubectl apply -f calico-operator.yaml<br>sed -i “s#192.168.0.0&#x2F;16#${POD_SUBNET}#” calico-custom-resources.yaml<br>kubectl apply -f calico-custom-resources.yaml</p><p>网络方案二、flannel<br>cd ~<br>mkdir flannel<br>cd flannel<br>wget <a href="https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml">https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</a></p><h1 id="kube-flannel-yml-的-data-net-conf-json-Network-需要与-kubeadm-config-yaml-中的-networking-pod-network-cidr-保持一致"><a href="#kube-flannel-yml-的-data-net-conf-json-Network-需要与-kubeadm-config-yaml-中的-networking-pod-network-cidr-保持一致" class="headerlink" title="kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致"></a>kube-flannel.yml 的 data.net-conf.json.Network 需要与 kubeadm-config.yaml 中的 networking.pod-network-cidr 保持一致</h1><p>kubectl apply -f kube-flannel.yml<br>#若卡住不动，可以查看pod信息，然后下载相关镜像<br>docker pull quay.io&#x2F;coreos&#x2F;flannel:v0.11.0-amd64<br>#如果多网卡则修改yaml文件<br>args:</p><ul><li>–masq</li><li>–kube-subnet-mgr</li><li>–iface&#x3D;enp0s8（网卡名）</li></ul><p>#执行<br>kubectl apply -f kube-flannel.yml<br>kubectl get pods -n kube-system</p><h1 id="node节点"><a href="#node节点" class="headerlink" title="node节点"></a>node节点</h1><p>mkdir -p &#x2F;etc&#x2F;kubernetes<br>mkdir -p &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd</p><p>#token有效期是有限的（默认24h），如果旧的token过期，可以使用命令重新创建一条token<br>kubeadm token create –print-join-command</p><p>#加入node节点<br>kubeadm join k8s.apiserver.com:6443 –token 05eoyj.6x9dhm9q86u2xfmc –discovery-token-ca-cert-hash sha256:c6bd85e6c2b3ce88b9764e3462d4d0cbaab091a32522f685310ec3501683a756 –ignore-preflight-errors&#x3D;Swap</p><p>#加入master节点<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;sa.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;front-proxy-ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;ca.* &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;<br>scp -r [master]&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf &#x2F;etc&#x2F;kubernetes&#x2F;<br>kubeadm join k8s.apiserver.com:6443 –token 05eoyj.6x9dhm9q86u2xfmc –discovery-token-ca-cert-hash sha256:c6bd85e6c2b3ce88b9764e3462d4d0cbaab091a32522f685310ec3501683a756 –ignore-preflight-errors&#x3D;Swap –experimental-control-plane</p><p>#移除ndoe节点<br>#master上执行<br>kubectl delete node node13<br>#node上执行<br>kubeadm reset -f<br>ifconfig cni0 down &amp;&amp; ip link delete cni0<br>ifconfig flannel.1 down &amp;&amp; ip link delete flannel.1<br>rm -rf &#x2F;var&#x2F;lib&#x2F;cni&#x2F;<br>rm -rf &#x2F;etc&#x2F;kubernetes<br>rm -rf &#x2F;root&#x2F;.kube&#x2F;config<br>rm -rf &#x2F;var&#x2F;lib&#x2F;etcd</p><p>更新证书时间<br>kubeadm alpha certs renew all</p><p>查看证书时间<br>kubeadm alpha certs check-expiration</p><p>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-apiserver.yaml<br>添加到如下位置就行了</p><ul><li>command:<ul><li>kube-apiserver</li><li>–service-node-port-range&#x3D;1-65535</li></ul></li></ul><p>1.21之后，get cs （ComponentStatus） 报错<br>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-scheduler.yaml<br>注释掉 port&#x3D;0<br>vi &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-controller-manager.yaml<br>注释掉 port&#x3D;0</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CNCF 云原生 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 容器化 </tag>
+            
+            <tag> kubernetes </tag>
+            
+            <tag> 云原生 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nexus</title>
+      <link href="/2017/05/12/tools/nexus/nexus/"/>
+      <url>/2017/05/12/tools/nexus/nexus/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nexus </tag>
+            
+            <tag> 中央仓库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>开源社区中的 &quot;黑话&quot;</title>
+      <link href="/2017/05/12/tools/git/phrase/"/>
+      <url>/2017/05/12/tools/git/phrase/</url>
+      
+        <content type="html"><![CDATA[<table><thead><tr><th align="left">缩写</th><th align="left">全称</th><th align="left">解释</th></tr></thead><tbody><tr><td align="left">WIP</td><td align="left">Work In Progress</td><td align="left">正在进行中</td></tr><tr><td align="left">PR</td><td align="left">Pull Request</td><td align="left">请求拉取自己的代码, 通常指请求合并</td></tr><tr><td align="left">LGTM &#x2F; SGTM</td><td align="left">Looks&#x2F;Sounds Good To Me</td><td align="left">Riview 完别人的 PR，没有问题</td></tr><tr><td align="left">PTAL</td><td align="left">Please Take A Look</td><td align="left">帮我看下，请别人 review 自己的 PR</td></tr><tr><td align="left">RFC</td><td align="left">Request For Comments</td><td align="left">我们来一起讨论下</td></tr><tr><td align="left">ACK</td><td align="left">Acknowledgement</td><td align="left">我接受</td></tr><tr><td align="left">NACK &#x2F; NAK</td><td align="left">Negative Acknowledgement</td><td align="left">我不同意</td></tr><tr><td align="left">TBR</td><td align="left">To Be Reviewed</td><td align="left">提示维护者进行 review</td></tr><tr><td align="left">TBD</td><td align="left">To Be Done &#x2F; Defined &#x2F; Discussed &#x2F; Decided &#x2F; Determined</td><td align="left">根据语境不同意义有所区别，但一般都是还没搞定的意思</td></tr><tr><td align="left">CC</td><td align="left">Carbon Copy</td><td align="left">一般代表抄送别人的意思</td></tr><tr><td align="left">IIRC</td><td align="left">If I Remember Correctly</td><td align="left">如果我没记错</td></tr><tr><td align="left">TL;DR</td><td align="left">Too Long; Didn’t Read</td><td align="left">太长懒得看。也有文档在做简略描述之前会写这么一句</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> Tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+            <tag> 开源社区 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CentOS 常用命令</title>
+      <link href="/2017/01/07/linux/command/"/>
+      <url>/2017/01/07/linux/command/</url>
+      
+        <content type="html"><![CDATA[<p>启动时内核列表配置文件：CentOS7<br>cat &#x2F;boot&#x2F;grub2&#x2F;grub.cfg | grep menuentry</p><p>挂载cd&#x2F;vcd<br>mount -o exec &#x2F;dev&#x2F;cdrom &#x2F;media&#x2F;cdrom</p><p>ls &#x2F;mnt&#x2F;hgfs<br>vmware-hgfsclient<br>mount -t vmhgfs .host:&#x2F;shared &#x2F;mnt&#x2F;hgfs</p><p>查看新磁盘<br>fdisk -l<br>1.进入fdisk模式</p><p>&#x2F;sbin&#x2F;fdisk &#x2F;dev&#x2F;（设备）<br>2.输入n进行分区<br>n</p><p>这里有两个选项：(一般选择e，这里我选择的p。)<br>p: 主分区 linux上主分区最多能有4个<br>e:扩展分区 linux上扩展分区只能有1个，扩展分区创建后不能直接使用，还要在扩展分区上创建逻辑分区。</p><p>p</p><p>w</p><p>fdisk -l<br>mkfs.xfs &#x2F;dev&#x2F;（设备） -f</p><p>mount  &#x2F;dev&#x2F;（设备） &#x2F;home</p><p>df -h</p><p>blkid</p><p>vim &#x2F;etc&#x2F;fstab<br>UUID&#x3D;dd660379-48e2-4d06-b793-aedda00423c0  &#x2F;home  xfs  defaults  1  1</p><p>查看磁盘使用<br>lsblk<br>查看要扩容的<br>vgs<br>扩容<br>pvcreate &#x2F;dev&#x2F;vdb<br>vgextend rhel &#x2F;dev&#x2F;vdb<br>lvextend -L +99.99G &#x2F;dev&#x2F;mapper&#x2F;rhel-home<br>xfs_growfs &#x2F;dev&#x2F;mapper&#x2F;rhel-home</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> CentOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CentOS 初始化</title>
+      <link href="/2017/01/07/linux/initial/"/>
+      <url>/2017/01/07/linux/initial/</url>
+      
+        <content type="html"><![CDATA[<h1 id="yum源-与-apt源"><a href="#yum源-与-apt源" class="headerlink" title="yum源 与 apt源"></a>yum源 与 apt源</h1><p>Windows系统上可以通过360软件管家等实现软件的一键安装、升级和卸载，Linux 系统也提供有这样的工具，就是 <code>yum</code>和 <code>apt</code>。<br><strong>yum</strong>, “Yellow dog Updater, Modified”, CentOS上专门为了解决包的依赖关系而存在的软件包管理器。<br><strong>apt</strong>, “Advanced Packaging Tool”, Ubuntu或Debian上一款强大的包管理工具。<br><code>yum</code>和<code>apt</code>都可以看做是改进型的<code>RPM</code>软件管理器，<code>yum</code>和<code>apt</code>本质上是一样的，都是linux操作系统上的<code>rpm</code>依赖管理软件， 都能很好的解决<code>RPM</code>所面临的软件包依赖问题。</p><p>以下就以免费操作系统<code>CentOS</code>以<code>yum</code>为例进行说明：<br><code>yum</code>在服务器端存有所有的<code>RPM</code>包, 并将各个包之间的依赖关系记录在文件中,当管理员使用<code>yum</code>安装<code>RPM</code>包时，会先从服务器端下载包的依赖性文件，通过分析此文件从服务器端一次性下载所有相关的<code>RPM</code>包并进行安装。<br>因此，要想正常<code>yum</code>，就需要指定正确的的服务器。一般情况下，只要你的主机网络正常，可以直接使用网络<code>yum</code>，不需要对配置文件做任何修改。<br>但默认的服务器在国外，由于中国国内网络原因，访问速度极其缓慢，国内有许多权威机构和互联网大厂都对<code>yum</code>源做了镜像，我们只要将Linux的yum源切换到国内的镜像源地址，即可大大提升访问速度。</p><h2 id="yum源"><a href="#yum源" class="headerlink" title="yum源"></a>yum源</h2><p>CentOS 操作系统中，yum源的配置文件，位于 <code>/etc/yum.repos.d/</code>目录下，该目录下所有以<code>.repo</code>结尾的文件都是一个正在使用的yum源，在使用<code>yum</code>命令时，会遍历所有以<code>.repo</code>结尾的文件。</p><p>操作系统安装完成后，通常会有以下默认文件：<br><em><strong>CentOS-Base.repo  通常用来配置<code>网络yum源</code></strong></em><br><em><strong>CentOS-Media.repo 通常用来配置<code>本地yum源</code></strong></em></p><h2 id="设置网络yum源"><a href="#设置网络yum源" class="headerlink" title="设置网络yum源"></a>设置网络yum源</h2><h3 id="yum源国内开源镜像"><a href="#yum源国内开源镜像" class="headerlink" title="yum源国内开源镜像"></a>yum源国内开源镜像</h3><table><thead><tr><th align="left">—</th><th align="left">阿里</th><th align="left">网易</th></tr></thead><tbody><tr><td align="left"><strong>centos8</strong></td><td align="left"><a href="https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo">https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo</a></td><td align="left"><a href="http://mirrors.163.com/.help/CentOS8-Base-163.repo">http://mirrors.163.com/.help/CentOS8-Base-163.repo</a></td></tr><tr><td align="left"><strong>centos7</strong></td><td align="left"><a href="https://mirrors.aliyun.com/repo/Centos-7.repo">https://mirrors.aliyun.com/repo/Centos-7.repo</a></td><td align="left"><a href="http://mirrors.163.com/.help/CentOS7-Base-163.repo">http://mirrors.163.com/.help/CentOS7-Base-163.repo</a></td></tr><tr><td align="left"><strong>centos6</strong></td><td align="left"><a href="https://mirrors.aliyun.com/repo/Centos-vault-6.10.repo">https://mirrors.aliyun.com/repo/Centos-vault-6.10.repo</a></td><td align="left"><a href="http://mirrors.163.com/.help/CentOS6-Base-163.repo">http://mirrors.163.com/.help/CentOS6-Base-163.repo</a></td></tr></tbody></table><h3 id="修改yum源"><a href="#修改yum源" class="headerlink" title="修改yum源"></a>修改yum源</h3><p>方式一：提前下载好yum源文件，假设 <code>~/</code>目录下已下载好阿里 centos8 镜像源文件 Centos-vault-8.5.2111.repo</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份原有镜像源文件</span></span><br><span class="line">mv -r /etc/yum.repos.d/* /etc/yum.repos.d/bakup</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将镜像源拷贝至 /etc/yum.repos.d 目录,</span> </span><br><span class="line">mv ~/Centos-vault-8.5.2111.repo /etc/yum.repos.d/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改文件名称</span></span><br><span class="line">MV /etc/yum.repos.d/Centos-vault-8.5.2111.repo CentOS-Base.repo</span><br></pre></td></tr></table></figure><p>方式二：通过网络下载</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份原有镜像源文件</span></span><br><span class="line">cp -r /etc/yum.repos.d/* /etc/yum.repos.d/bakup</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载并重命名</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo</span><br></pre></td></tr></table></figure><h2 id="设置本地yum源"><a href="#设置本地yum源" class="headerlink" title="设置本地yum源"></a>设置本地yum源</h2><p>在无法联网的情况下，yum 可以考虑用本地光盘（或安装映像文件）作为 yum 源。<br>Linux 系统安装映像文件中就含有常用的 RPM 包，我们可以使用压缩文件打开映像文件（iso文件)。</p><h3 id="挂载-CentOS-安装镜像"><a href="#挂载-CentOS-安装镜像" class="headerlink" title="挂载 CentOS 安装镜像"></a>挂载 CentOS 安装镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建cdrom目录，作为光盘的挂载点</span></span><br><span class="line">mkdir /mnt/cdrom</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">挂载光盘到/mnt/cdrom目录下</span></span><br><span class="line">mount /dev/cdrom /mnt/cdrom/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">出现如下信息说明挂载在成功</span></span><br><span class="line">mount: block device/dev/srO is write-protected, mounting read-only</span><br></pre></td></tr></table></figure><p>做好备份，并且在<code>/etc/yum.repos.d/</code>目录下，创建<code>CentOS-Media.repo</code>文件，并编辑</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[centos8-media]</span><br><span class="line">name=CentOS-8-Media</span><br><span class="line">baseurl=file:///mnt/cdrom</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6</span><br></pre></td></tr></table></figure><p>[centos8-media] # 当前配置节点，不可重复<br><code>name</code>       # 当前配置名称<br><code>baseurl</code>    # 地址为你自己的光盘挂载地址<br><code>enabled</code>    # 把enabled&#x3D;0改为enabled&#x3D;1, 让这个yum源配置文件生效<br><code>gpgcheck</code>   # gpgcheck&#x3D;1表示进行gpg验证, # 通常我们设置为0，不进行验证<br><code>gpgkey</code>     # gpg验证的地址，如果不验证则可以不设置</p><h2 id="yum源-初始化操作"><a href="#yum源-初始化操作" class="headerlink" title="yum源 初始化操作"></a>yum源 初始化操作</h2><p>初始化操作</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">清理</span></span><br><span class="line">sudo yum clean all</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进行缓存</span></span><br><span class="line">sudo yum makecache</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">升级已安装软件</span></span><br><span class="line">sudo yum update -y</span><br></pre></td></tr></table></figure><p>经常会使用到的基本软件</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils net-tools vim wget unzip bash-completion perl epel-release bind-utils net-tools telnet gcc gcc-c+ make openssl openssl-level pcre pcre-devel zlib lib-devel kernel-devel dkms checkpolicy selinux-policy-devel</span><br></pre></td></tr></table></figure><p>关于yum源 <a href="http://c.biancheng.net/view/2931.html">详细可参考 http://c.biancheng.net/view/2931.html</a></p><h1 id="安全设置"><a href="#安全设置" class="headerlink" title="安全设置"></a>安全设置</h1><p>防火墙</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure><p>编辑<code>/etc/sysctl.conf</code></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">vm.max_map_count=655350</span><br><span class="line">net.ipv6.conf.all.disable_ipv6=1</span><br></pre></td></tr></table></figure><p>编辑<code>/etc/systemd/system.conf</code></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/systemd/system.conf</span><br><span class="line"></span><br><span class="line">DefaultLimitNOFILE=65535</span><br></pre></td></tr></table></figure><p>编辑<code>/etc/security/limits.conf</code></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line">*　　soft　　nofile　　65535</span><br><span class="line">*　　hard　　nofile　　65535</span><br></pre></td></tr></table></figure><p>编辑<code>/etc/selinux/config</code></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/selinux/config</span><br><span class="line"></span><br><span class="line">SELINUX=disabled</span><br></pre></td></tr></table></figure><p>编辑 <code>/etc/ssh/sshd_config</code></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line">UseDNS no</span><br><span class="line">GSSAPIAuthentication no</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> CentOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JAVA 垃圾收集器</title>
+      <link href="/2016/03/10/java/garbage-collector/"/>
+      <url>/2016/03/10/java/garbage-collector/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 垃圾收集器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JAVA内存分配 与 垃圾回收机制</title>
+      <link href="/2016/03/05/java/memory-recycling/"/>
+      <url>/2016/03/05/java/memory-recycling/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 内存分配 </tag>
+            
+            <tag> 垃圾回收 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>maven</title>
+      <link href="/2016/03/05/java/maven/maven/"/>
+      <url>/2016/03/05/java/maven/maven/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> maven </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JVM 与 运行时数据区</title>
+      <link href="/2016/03/01/java/jvm-classloader/"/>
+      <url>/2016/03/01/java/jvm-classloader/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> jvm </tag>
+            
+            <tag> 类加载器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
