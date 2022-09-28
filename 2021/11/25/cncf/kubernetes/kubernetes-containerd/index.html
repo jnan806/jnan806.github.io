@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>kubernetes containerd版本 - 「 ~ 」- jnan806&#39;s blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="jnan806, JAVA, Go, 云原生, 微服务">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="基础环境配置节点规划   IP hostname 说明    10.0.0.1 k8s-master master 节点   10.0.0.2 k8s-node01 node   节点   10.0.0.3 k8s-node02 node   节点   基本配置所有节点 配置hosts，修改&#x2F;etc&#x2F;hosts如下：10.0.0.1 k8s-master10.0.0.2 k8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes containerd版本">
+<meta property="og:url" content="http://jnan806.panpan.cloud/2021/11/25/cncf/kubernetes/kubernetes-containerd/index.html">
+<meta property="og:site_name" content="「 ~ 」- jnan806&#39;s blog">
+<meta property="og:description" content="基础环境配置节点规划   IP hostname 说明    10.0.0.1 k8s-master master 节点   10.0.0.2 k8s-node01 node   节点   10.0.0.3 k8s-node02 node   节点   基本配置所有节点 配置hosts，修改&#x2F;etc&#x2F;hosts如下：10.0.0.1 k8s-master10.0.0.2 k8s">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-25T04:21:44.000Z">
+<meta property="article:modified_time" content="2022-09-23T04:31:53.579Z">
+<meta property="article:author" content="jnan806">
+<meta property="article:tag" content="containerd">
+<meta property="article:tag" content="容器化">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="云原生">
+<meta name="twitter:card" content="summary">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/justifiedGallery/justifiedGallery.min.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1664351657002">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1664351657002">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1664351657002">
+        
+    
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="「 ~ 」- jnan806's blog" type="application/atom+xml">
+</head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(/source.local/images/background.png)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer">「 ~ 」- jnan806&#39;s blog</div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="jnan806" class="mdui-btn mdui-btn-icon"><img src="/source.local/images/avatar.png" alt="jnan806"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="javascript:void(0);" title="jnan806">
+            <img src="/source.local/images/avatar.png" alt="jnan806" loading="lazy">
+        </a>
+    </div>
+
+    <div class="nexmoe-count">
+        <div><a href="/archives/"><span>文章</span>18</a></div>
+        <div><a href="/archives/"><span>标签</span>27</a></div>
+        <div><a href="/archives/"><span>分类</span>7</a></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="首 页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                首 页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archives/" title="时间轴">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                时间轴
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/aboutme" title="关 于">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关 于
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+        
+        
+        <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/jnan806/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="/atom.xml"
+			target="_blank"
+			mdui-tooltip="{content: 'RSS'}"
+			style="
+				color: rgb(247, 132, 34);
+				background-color: rgba(247, 132, 34, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-rss"
+			></i> </a
+		>
+	</div>
+</div>
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CNCF-云原生/">CNCF 云原生</a>
+          <span class="category-list-count">4</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Golang/">Golang</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Java/">Java</a>
+          <span class="category-list-count">4</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Linux/">Linux</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Spring/">Spring</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Spring-Cloud/">Spring-Cloud</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Tools/">Tools</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/CentOS/" style="font-size: 12.5px;">CentOS</a> <a href="/tags/Golang/" style="font-size: 10px;">Golang</a> <a href="/tags/alibaba/" style="font-size: 10px;">alibaba</a> <a href="/tags/containerd/" style="font-size: 12.5px;">containerd</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kubernetes/" style="font-size: 12.5px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nexus/" style="font-size: 10px;">nexus</a> <a href="/tags/spring/" style="font-size: 17.5px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 15px;">spring-boot</a> <a href="/tags/spring-cloud/" style="font-size: 12.5px;">spring-cloud</a> <a href="/tags/spring-cloud-alibaba/" style="font-size: 10px;">spring-cloud-alibaba</a> <a href="/tags/ssl%E8%87%AA%E7%AD%BE%E8%AF%81%E4%B9%A6/" style="font-size: 10px;">ssl自签证书</a> <a href="/tags/%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93/" style="font-size: 10px;">中央仓库</a> <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" style="font-size: 12.5px;">云原生</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" style="font-size: 10px;">垃圾回收</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" style="font-size: 10px;">垃圾收集器</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/" style="font-size: 17.5px;">容器化</a> <a href="/tags/%E5%BC%80%E6%BA%90%E7%A4%BE%E5%8C%BA/" style="font-size: 10px;">开源社区</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 12.5px;">微服务</a> <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" style="font-size: 10px;">类加载器</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2016 - 2022 jnan806
+        <br/>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+    <a>
+        
+            <div class="nexmoe-post-cover mdui-ripple">
+                <!--                    <img src="/source.local/images/background.png" alt="kubernetes containerd版本" loading="lazy">-->
+                <h1>kubernetes containerd版本</h1>
+            </div>
+        
+    </a>
+
+    <div class="nexmoe-post-meta nexmoe-rainbow">
+        <a><i class="nexmoefont icon-calendar-fill"></i>2021年11月25日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/CNCF-%E4%BA%91%E5%8E%9F%E7%94%9F/">CNCF 云原生</a>
+        
+        
+            <a class="nexmoefont icon-tag-fill -none-link" href="/tags/containerd/" rel="tag">containerd</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/kubernetes/" rel="tag">kubernetes</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" rel="tag">云原生</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/" rel="tag">容器化</a>
+        
+        
+    </div>
+
+    <hr/>
+
+  <article>
+      <h2 id="基础环境配置"><a href="#基础环境配置" class="headerlink" title="基础环境配置"></a>基础环境配置</h2><h3 id="节点规划"><a href="#节点规划" class="headerlink" title="节点规划"></a>节点规划</h3><table>
+<thead>
+<tr>
+<th>IP</th>
+<th>hostname</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.0.0.1</td>
+<td>k8s-master</td>
+<td>master 节点</td>
+</tr>
+<tr>
+<td>10.0.0.2</td>
+<td>k8s-node01</td>
+<td>node   节点</td>
+</tr>
+<tr>
+<td>10.0.0.3</td>
+<td>k8s-node02</td>
+<td>node   节点</td>
+</tr>
+</tbody></table>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><h4 id="所有节点-配置hosts，修改-x2F-etc-x2F-hosts如下："><a href="#所有节点-配置hosts，修改-x2F-etc-x2F-hosts如下：" class="headerlink" title="所有节点 配置hosts，修改&#x2F;etc&#x2F;hosts如下："></a>所有节点 配置hosts，修改&#x2F;etc&#x2F;hosts如下：</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">10.0.0.1 k8s-master</span><br><span class="line">10.0.0.2 k8s-node01</span><br><span class="line">10.0.0.3 k8s-node02</span><br></pre></td></tr></table></figure>
+
+<h4 id="所有节点-CentOS-初始化"><a href="#所有节点-CentOS-初始化" class="headerlink" title="所有节点 CentOS 初始化"></a>所有节点 CentOS 初始化</h4><p>详细步骤 回顾文章 <a href="/2017/01/07/linux/initial/">&lt;&lt; CentOS 初始化 &gt;&gt;</a></p>
+<h4 id="所有节点-containerd-安装"><a href="#所有节点-containerd-安装" class="headerlink" title="所有节点 containerd 安装"></a>所有节点 containerd 安装</h4><p>详细步骤 回顾文章 <a href="/2021/11/25/cncf/docker/containerd/">&lt;&lt; containerd 安装 &gt;&gt;</a></p>
+<h2 id="K8s组件及Runtime安装"><a href="#K8s组件及Runtime安装" class="headerlink" title="K8s组件及Runtime安装"></a>K8s组件及Runtime安装</h2><h3 id="所有节点配置k8s内核："><a href="#所有节点配置k8s内核：" class="headerlink" title="所有节点配置k8s内核："></a>所有节点配置k8s内核：</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/sysctl.d/k8s.conf</span><br><span class="line"></span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-arptables = 1</span><br></pre></td></tr></table></figure>
+<p>此时 <code>/etc/sysctl.d/k8s.conf</code> 无法生效，需要启动模块</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">临时生效，执行如下命令</span></span><br><span class="line">modprobe br_netfilter</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启永久生效，执行如下步骤</span></span><br><span class="line">vim /etc/sysconfig/modules/br_netfilter.modules</span><br><span class="line"></span><br><span class="line">modprobe br_netfilter</span><br><span class="line"></span><br><span class="line">chmod +x /etc/sysconfig/modules/br_netfilter.modules</span><br><span class="line">/bin/bash /etc/sysconfig/modules/br_netfilter.modules</span><br></pre></td></tr></table></figure>
+<p>查看是否成功</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lsmod | grep br_netfilter</span><br></pre></td></tr></table></figure>
+
+<h3 id="所有节点-ipvs-安装"><a href="#所有节点-ipvs-安装" class="headerlink" title="所有节点 ipvs 安装"></a>所有节点 ipvs 安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install -y ipset ipvsadm</span><br></pre></td></tr></table></figure>
+<p>配置 ipvs </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/sysconfig/modules/ipvs.modules</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">modprobe -- ip_vs </span><br><span class="line">modprobe -- ip_vs_rr</span><br><span class="line">modprobe -- ip_vs_wrr</span><br><span class="line">modprobe -- ip_vs_sh</span><br><span class="line">modprobe -- nf_conntrack_ipv4</span><br><span class="line"></span><br><span class="line">chmod +x /etc/sysconfig/modules/ipvs.modules</span><br><span class="line">/bin/bash /etc/sysconfig/modules/ipvs.modules</span><br></pre></td></tr></table></figure>
+<p>查看是否成功</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lsmod | grep -e -ip_vs -e nf_conntrack_ipv4</span><br></pre></td></tr></table></figure>
+
+<h2 id="所有节点kubernetes-repo源配置："><a href="#所有节点kubernetes-repo源配置：" class="headerlink" title="所有节点kubernetes.repo源配置："></a>所有节点<code>kubernetes.repo</code>源配置：</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/yum.repos.d/kubernetes.repo</span><br><span class="line"></span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br></pre></td></tr></table></figure>
+
+<h2 id="k8s-安装"><a href="#k8s-安装" class="headerlink" title="k8s 安装"></a>k8s 安装</h2><p>master 节点 kubelet kubeadm 外 多安装一个 kubectl</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes</span><br></pre></td></tr></table></figure>
+<p>master 节点 添加 kubectl 自动补全</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source &lt;(kubectl completion bash)</span><br></pre></td></tr></table></figure>
+<p>node 节点 安装 kunelet kubeadm</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install -y kubelet kubeadm --disableexcludes=kubernetes</span><br></pre></td></tr></table></figure>
+<p>配置 kubelet</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/sysconfig/kubelet</span><br><span class="line"></span><br><span class="line">KUBELET_CGROUP_ARGS=&quot;--cgroup-driver=systemd&quot;</span><br><span class="line">KUBE_PROXY_MODE=&quot;ipvs&quot;</span><br></pre></td></tr></table></figure>
+<p>设置 kubelet 开机启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable kubelet &amp;&amp; systemctl start kubelet</span><br></pre></td></tr></table></figure>
+<p>此时kubelet的状态，还是启动失败，通过journalctl -xeu kubelet能看到error信息；只有当执行了kubeadm init后才会启动成功。</p>
+<p>拉取 kubeadm 默认配置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubeadm config print init-defaults &gt; ~/k8s-init-config.yaml</span><br></pre></td></tr></table></figure>
+
+<p>更改 k8s.gcr.io 镜像下载地址，并下载</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim ~/k8s-init-config.yaml</span><br><span class="line"></span><br><span class="line">imageRepository: registry.aliyuncs.com/google_containers</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubeadm config images pull --config=~/k8s-init-config.yaml</span><br></pre></td></tr></table></figure>
+<p>修改 &#x2F;etc&#x2F;containerd&#x2F;config.toml, 使 pause 和 k8s 下载下来的镜像保持一致</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sandbox_image = &quot;registry.aliyuncs.com/google_containers/pause:3.8&quot;</span><br></pre></td></tr></table></figure>
+<p>重启 containerd</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart containerd</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="master-节点-初始化"><a href="#master-节点-初始化" class="headerlink" title="master 节点 初始化"></a>master 节点 初始化</h2><p>方式一</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim ~/k8s-init-config.yaml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">advertiseAddress: 10.0.0.1</span><br><span class="line"></span><br><span class="line">imageRepository: registry.aliyuncs.com/google_containers</span><br><span class="line"></span><br><span class="line">serviceSubnet: 10.55.0.0/16</span><br><span class="line">podSubnet: 10.99.0.0/16</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubeadm init \</span><br><span class="line">--config=k8s-init-config.yaml \  </span><br><span class="line">--ignore-preflight-errors=swap \</span><br><span class="line">--upload-certs</span><br></pre></td></tr></table></figure>
+<p>方式二</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubeadm init \</span><br><span class="line">--apiserver-advertise-address=10.0.0.1 \</span><br><span class="line">--apiserver-bind-port=6443  </span><br><span class="line">--image-repository registry.aliyuncs.com/google_containers \</span><br><span class="line">--service-cidr=10.55.0.0/16 \</span><br><span class="line">--pod-network-cidr=10.99.0.0/16</span><br><span class="line">--ignore-preflight-errors=swap \</span><br><span class="line">--upload-certs</span><br></pre></td></tr></table></figure>
+<p>apiserver-advertise-address 如果配置的不是<code>ip</code>而是<code>api.server</code>,则需要在 所有节点的 <code>/etc/host</code> 添加 <code>10.0.0.1 apiserver.com</code>的解析</p>
+<p>master 失败后</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重置kubeadm</span></span><br><span class="line">kubeadm reset -f</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除旧配置</span></span><br><span class="line">rm -fr  $HOME/.kube/config</span><br></pre></td></tr></table></figure>
+
+<p>master 成功后</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -rf $HOME/.kube</span><br><span class="line">mkdir -p $HOME/.kube</span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config </span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME/.kube/config</span><br></pre></td></tr></table></figure>
+<p>master 节点 加入集群</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubeadm join 10.0.0.1:6443 --token hzlzrr.uwuegx4locpu36oc \</span><br><span class="line">  --discovery-token-ca-cert-hash sha256:4cbe428cb3503277be9fbcf3a99de82a97397a624dd94d4270c4eed1b861f951 \</span><br><span class="line">  --control-plane --certificate-key 28b178f04afae3770aa92add0206650b2359dd61424f127a6d44142dd15a280d</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="node-节点-初始化"><a href="#node-节点-初始化" class="headerlink" title="node 节点 初始化"></a>node 节点 初始化</h2><p>node 节点 加入集群</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">该命令来自master安装成功后的最后两行信息</span></span><br><span class="line">kubeadm join 10.0.0.1:6443 --token hzlzrr.uwuegx4locpu36oc \</span><br><span class="line">  --discovery-token-ca-cert-hash sha256:4cbe428cb3503277be9fbcf3a99de82a97397a624dd94d4270c4eed1b861f951</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="master-节点-安装-网络插件"><a href="#master-节点-安装-网络插件" class="headerlink" title="master 节点 安装 网络插件"></a>master 节点 安装 网络插件</h2><p>选其一即可：calico 或 flannel 或 weave 网络插件<br>Calico</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f &quot;https://docs.projectcalico.org/manifests/calico.yaml&quot;</span><br></pre></td></tr></table></figure>
+<p>Weave</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &#x27;\n&#x27;)&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="运维操作"><a href="#运维操作" class="headerlink" title="运维操作"></a>运维操作</h2><p>修改 端口 范围</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/kubernetes/manifests/kube-apiserver.yaml</span><br><span class="line">添加到如下位置</span><br><span class="line">- command:</span><br><span class="line">   - kube-apiserver</span><br><span class="line">   - --service-node-port-range=1-65535</span><br></pre></td></tr></table></figure>
+<p>查看 token</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubeadm token list</span><br></pre></td></tr></table></figure>
+<p>重新创建 token</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">临时</span></span><br><span class="line">kubeadm token create --print-join-command</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">永久</span></span><br><span class="line">kubeadm token create --print-join-command --ttl 0</span><br></pre></td></tr></table></figure>
+<p>查看discovery-token-ca-cert-hash 获取ca证书sha256编码hash值</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2&gt;/dev/null | openssl dgst -sha256 -hex | sed &#x27;s/^.* //&#x27;</span><br></pre></td></tr></table></figure>
+<p>删除 node 节点</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl delete nodes k8s-node01</span><br></pre></td></tr></table></figure>
+      
+  </article>
+
+  <hr/>
+
+  
+    
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>jnan806<br>
+        <strong>本文链接：</strong><a href="http://jnan806.panpan.cloud/2021/11/25/cncf/kubernetes/kubernetes-containerd/" title="http:&#x2F;&#x2F;jnan806.panpan.cloud&#x2F;2021&#x2F;11&#x2F;25&#x2F;cncf&#x2F;kubernetes&#x2F;kubernetes-containerd&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;jnan806.panpan.cloud&#x2F;2021&#x2F;11&#x2F;25&#x2F;cncf&#x2F;kubernetes&#x2F;kubernetes-containerd&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+
+  <hr/>
+
+
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">基础环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E8%A7%84%E5%88%92"><span class="toc-number">1.1.</span> <span class="toc-text">节点规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">基本配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9-%E9%85%8D%E7%BD%AEhosts%EF%BC%8C%E4%BF%AE%E6%94%B9-x2F-etc-x2F-hosts%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">所有节点 配置hosts，修改&#x2F;etc&#x2F;hosts如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9-CentOS-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.2.2.</span> <span class="toc-text">所有节点 CentOS 初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9-containerd-%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.3.</span> <span class="toc-text">所有节点 containerd 安装</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K8s%E7%BB%84%E4%BB%B6%E5%8F%8ARuntime%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">K8s组件及Runtime安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9%E9%85%8D%E7%BD%AEk8s%E5%86%85%E6%A0%B8%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">所有节点配置k8s内核：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9-ipvs-%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">所有节点 ipvs 安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9kubernetes-repo%E6%BA%90%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">所有节点kubernetes.repo源配置：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#k8s-%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">k8s 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#master-%E8%8A%82%E7%82%B9-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">master 节点 初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node-%E8%8A%82%E7%82%B9-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">6.</span> <span class="toc-text">node 节点 初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#master-%E8%8A%82%E7%82%B9-%E5%AE%89%E8%A3%85-%E7%BD%91%E7%BB%9C%E6%8F%92%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">master 节点 安装 网络插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%BB%B4%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">运维操作</span></a></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="搜索"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+<script src="/lib/mdui_043tiny/mdui.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/justifiedGallery/jquery.justifiedGallery.min.js"></script>
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+
+
+ 
+
+<script async src="/js/app.js?v=1664351657009"></script>
+
+
+
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+</body>
+
+</html>
