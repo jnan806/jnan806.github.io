@@ -26,13 +26,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1664351657070">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1675042259545">
     
-    <link rel="stylesheet" href="/css/style.css?v=1664351657070">
+    <link rel="stylesheet" href="/css/style.css?v=1675042259545">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1664351657070">
+            <link rel="stylesheet" href="/custom.css?v=1675042259545">
         
     
 <meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="「 ~ 」- jnan806's blog" type="application/atom+xml">
@@ -206,7 +206,7 @@
     
 </aside>
     <div class="nexmoe-copyright">
-        &copy; 2016 - 2022 jnan806
+        &copy; 2016 - 2023 jnan806
         <br/>
         Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
         & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
@@ -309,7 +309,7 @@
 
 <h1 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir -p /etc/containerd/</span><br><span class="line">containerd config default &gt; /etc/containerd/config.toml</span><br></pre></td></tr></table></figure>
 <p>&#x2F;etc&#x2F;containerd&#x2F;config.toml</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. sandbox 修改为 国内 k8s.gcr.io 源</span><br><span class="line">2. </span><br><span class="line">      [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry]</span><br><span class="line">        config_path = &quot;/etc/containerd/certs.d&quot;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">      mkdir -p /etc/containerd/certs.d</span><br><span class="line">      </span><br><span class="line">      vim /etc/containerd/certs.d/docker.io/hosts.toml</span><br><span class="line">      server = &quot;https://docker.io&quot;</span><br><span class="line">      [host.&quot;https://********.mirror.aliyuncs.com&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line">      [host.&quot;https://registry.docker-cn.com&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line">      </span><br><span class="line">      vim /etc/containerd/certs.d/gcr.io/hosts.toml</span><br><span class="line">      server = &quot;https://gcr.io&quot;</span><br><span class="line">      [host.&quot;https://registry.aliyuncs.com&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line">      [host.&quot;https://gcr.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line">      </span><br><span class="line">      vim /etc/containerd/certs.d/quay.io/hosts.toml</span><br><span class="line">      server = &quot;https://quay.io&quot;</span><br><span class="line">      [host.&quot;https://quay.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line"></span><br><span class="line">4. SystemdCgroup = true</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. sandbox 修改为 国内 k8s.gcr.io 源</span><br><span class="line">2. </span><br><span class="line">      [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry]</span><br><span class="line">        config_path = &quot;/etc/containerd/certs.d&quot;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">      mkdir -p /etc/containerd/certs.d</span><br><span class="line">      </span><br><span class="line">      vim /etc/containerd/certs.d/docker.io/hosts.toml</span><br><span class="line">      [host.&quot;https://********.mirror.aliyuncs.com&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line">      [host.&quot;https://registry.docker-cn.com&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line">      </span><br><span class="line">      vim /etc/containerd/certs.d/gcr.io/hosts.toml</span><br><span class="line">      [host.&quot;https://registry.aliyuncs.com&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line">      [host.&quot;https://gcr.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line">      </span><br><span class="line">      vim /etc/containerd/certs.d/quay.io/hosts.toml</span><br><span class="line">      [host.&quot;https://quay.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">        capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span><br><span class="line">        skip_verify = true</span><br><span class="line"></span><br><span class="line">4. SystemdCgroup = true</span><br></pre></td></tr></table></figure>
         </article>
 
         <div class="nexmoe-post-readall">
@@ -363,7 +363,7 @@
 
  
 
-<script async src="/js/app.js?v=1664351657071"></script>
+<script async src="/js/app.js?v=1675042259546"></script>
 
 
 
